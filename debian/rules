@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+%:
+	dh $@ --with python3
+
+override_dh_auto_install:
+	dh_auto_install
+	mkdir -p debian/walpserver/usr/lib/walpserver
+	cp -r *.py templates static config.py requirements.txt debian/walpserver/usr/lib/walpserver/
+	mkdir -p debian/walpserver/usr/bin
+	echo '#!/bin/sh' > debian/walpserver/usr/bin/walpserver-manager
+	echo 'exec /usr/lib/walpserver/venv/bin/python3 /usr/lib/walpserver/manager.py "$@"' >> debian/walpserver/usr/bin/walpserver-manager
+	chmod +x debian/walpserver/usr/bin/walpserver-manager 

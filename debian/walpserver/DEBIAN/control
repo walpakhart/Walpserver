@@ -1,0 +1,12 @@
+Package: walpserver
+Version: 1.0.0-1
+Architecture: all
+Maintainer: Walpakhart <walpakhart@example.com>
+Installed-Size: 662
+Depends: python3:any, python3-pip, python3-venv
+Section: utils
+Priority: optional
+Homepage: https://github.com/walpakhart/Walpserver
+Description: Server manager for Walpserver
+ A comprehensive server management tool that handles server operations
+ and provides a web interface for administration.

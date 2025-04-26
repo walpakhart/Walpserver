@@ -1,0 +1,32 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "configure" ]; then
+    # Create virtual environment
+    python3 -m venv /usr/lib/walpserver/venv
+    
+    # Set proper permissions before installation
+    chown -R root:root /usr/lib/walpserver
+    chmod -R 755 /usr/lib/walpserver
+    chmod -R 777 /usr/lib/walpserver/venv
+    
+    # Activate virtual environment and install dependencies
+    . /usr/lib/walpserver/venv/bin/activate
+    if [ -f /usr/lib/walpserver/requirements.txt ]; then
+        pip install --break-system-packages -r /usr/lib/walpserver/requirements.txt
+    else
+        echo "Warning: requirements.txt not found, skipping dependency installation"
+    fi
+fi
+
+
+# Automatically added by dh_python3
+if command -v py3compile >/dev/null 2>&1; then
+	py3compile -p walpserver /usr/lib/walpserver
+fi
+if command -v pypy3compile >/dev/null 2>&1; then
+	pypy3compile -p walpserver /usr/lib/walpserver || true
+fi
+
+# End automatically added section
+ 

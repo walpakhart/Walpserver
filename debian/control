@@ -1,0 +1,14 @@
+Source: walpserver
+Section: utils
+Priority: optional
+Maintainer: Walpakhart <walpakhart@example.com>
+Build-Depends: debhelper-compat (= 13), python3-all, python3-setuptools
+Standards-Version: 4.6.0
+Homepage: https://github.com/walpakhart/Walpserver
+
+Package: walpserver
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}, python3-pip, python3-venv
+Description: Server manager for Walpserver
+ A comprehensive server management tool that handles server operations
+ and provides a web interface for administration. 
