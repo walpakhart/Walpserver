@@ -1,0 +1,19 @@
+Source: walpserver
+Section: web
+Priority: optional
+Maintainer: Your Name <your.email@example.com>
+Build-Depends: debhelper-compat (= 13), python3, python3-setuptools, python3-all, dh-python
+
+Package: walpserver
+Architecture: all
+Depends: ${python3:Depends}, ${misc:Depends}, python3, python3-venv, python3-pip, libxml2-dev, libxslt-dev, python3-dev
+Description: WalpServer - Media Server with Web Interface
+ A powerful media server with web interface for managing files,
+ torrent downloads, and media playback.
+ .
+ Features include:
+  * File management through web interface
+  * Torrent downloads and management
+  * Media playback
+  * System monitoring
+  * Beautiful and user-friendly interface 

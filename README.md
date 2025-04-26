@@ -1,133 +1,279 @@
-# walpakhart.co - Файловый сервер с заметками и фильмами
+# WalpServer
 
-Полнофункциональный самостоятельно хостируемый файловый сервер с современным веб-интерфейсом для загрузки, просмотра и управления файлами, заметками и фильмами. Проект включает поддержку категоризации файлов, заметок, личной коллекции фильмов, систему авторизации и адаптивный дизайн с темным режимом.
+Медиа-сервер с веб-интерфейсом для управления файлами, загрузки торрентов и воспроизведения медиа.
 
-## Основные возможности
+## Возможности
 
-- **Управление файлами:** загрузка, просмотр и скачивание файлов различных типов
-- **Встроенный медиаплеер:** воспроизведение аудио и видео файлов непосредственно в браузере
-- **Хранение ссылок:** сохранение и управление ссылками на внешние ресурсы
-- **Заметки:** создание и управление личными заметками с разными приоритетами
-- **Коллекция фильмов:** поиск и сохранение фильмов с использованием API Кинопоиска
-- **Категоризация:** автоматическое распределение файлов по категориям (изображения, видео, аудио, документы, скрипты и т.д.)
-- **Загрузка папок:** поддержка загрузки целых папок с сохранением их структуры
-- **Предпросмотр файлов:** просмотр содержимого текстовых файлов, изображений и PDF непосредственно в браузере
-- **Сортировка и поиск:** удобный поиск и сортировка по имени, дате и размеру
-- **Безопасность:** система авторизации с защитой паролей
-- **Адаптивный дизайн:** работает на всех устройствах, включая мобильные
-- **Темный режим:** автоматическое переключение в зависимости от системных настроек
-- **Интернационализация:** поддержка русского и английского языков, возможность переключения между ними
+- Управление файлами через веб-интерфейс
+- Загрузка и управление торрентами
+- Воспроизведение медиа-файлов
+- Мониторинг системы
+- Красивый и удобный интерфейс
 
-## Новые возможности в последнем обновлении
+## Установка
 
-- **Встроенный медиаплеер:** воспроизведение видео и аудио файлов прямо в браузере без необходимости скачивания
-- **Улучшенная организация кода:** добавлен .gitignore файл для правильного контроля версий
-- **Улучшенная документация:** обновленный README.md с подробной информацией о возможностях
+### Установка из .deb пакета
 
-## Системные требования
-
-- **Python**: 3.8 или выше
-- **Зависимости**: Flask, Flask-Login, BeautifulSoup4, Requests, lxml, Gunicorn
-- **Веб-сервер**: Nginx
-- **Дисковое пространство**: минимум 100 МБ для приложения (без учета загружаемых файлов)
-- **Оперативная память**: минимум 256 МБ, рекомендуется 512 МБ и больше
-
-## Быстрая настройка на Linux (одноразовая установка)
-
-### 1. Подготовка системы
-
+1. Скачайте последнюю версию .deb пакета
+2. Установите пакет:
 ```bash
-# Обновление системы
-sudo apt update && sudo apt upgrade -y
-
-# Установка необходимых пакетов
-sudo apt install -y python3 python3-pip python3-venv git ngrok
+sudo dpkg -i walpserver_1.0.0_all.deb
+```
+3. Если возникнут ошибки зависимостей:
+```bash
+sudo apt-get install -f
 ```
 
-### 2. Установка файлового сервера
+### Установка вручную
 
+1. Клонируйте репозиторий:
 ```bash
-# Клонирование репозитория
-git clone https://github.com/yourusername/selfhosted-file-server.git
-cd selfhosted-file-server
+git clone https://github.com/yourusername/walpserver.git
+cd walpserver
+```
 
-# Создание виртуального окружения
+2. Создайте виртуальное окружение:
+```bash
 python3 -m venv venv
 source venv/bin/activate
+```
 
-# Установка зависимостей
+3. Установите зависимости:
+```bash
 pip install -r requirements.txt
-
-# Копирование и настройка конфигурации
-cp config.example.py config.py
-# Отредактируйте config.py, установите SECRET_KEY и другие параметры
 ```
 
-### 3. Настройка Ngrok 
-
-Для использования постоянного домена с ngrok, выполните следующие шаги:
-
-1. **Получите платный план ngrok**: Зарегистрируйтесь на сайте ngrok и выберите подходящий платный план, который позволяет использовать пользовательские домены.
-
-2. **Установите authtoken**: После получения платного плана, вам будет предоставлен `authtoken`. Установите его, выполнив следующую команду в терминале:
-
-   ```bash
-   ngrok config add-authtoken 2ttL0rDpz2TUmBI8u7MZ6WvNQra_4zuy2qNPcftUwRKwwy17G
-
-ngrok http --url=bengal-coherent-strictly.ngrok-free.app 5000
-   ```
-
-3. **Зарезервируйте доменное имя**: После установки `authtoken`, вы можете зарезервировать доменное имя и использовать его с помощью аргумента `-subdomain`. Запустите ngrok с помощью следующей команды:
-
-   ```bash
-   ngrok http -host-header="localhost:58821" -subdomain my-cool-app 58821
-   ```
-
-   Здесь `my-cool-app` — это ваш пользовательский поддомен, а `58821` — это порт, который вы хотите пробросить через ngrok.
-
-4. **Используйте постоянный URL**: Теперь вы можете использовать `https://my-cool-app.ngrok.io` для постоянного доступа к вашему окружению разработки.
-
-## Структура проекта
-
-```
-selfhosted-file-server/
-├── server.py           # Основной файл приложения Flask
-├── config.py           # Файл конфигурации
-├── config.example.py   # Пример файла конфигурации
-├── requirements.txt    # Список зависимостей Python
-├── .gitignore          # Файл для игнорирования файлов в Git
-├── README.md           # Документация проекта
-├── users.db            # База данных SQLite
-├── uploads/            # Директория для загруженных файлов
-├── downloads/          # Директория для скачанных файлов
-├── static/             # Статические файлы
-|   ├── css/            # CSS стили
-|   ├── js/             # JavaScript файлы
-|   |   └── modules/    # Модули JavaScript
-|   └── img/            # Изображения
-└── templates/          # HTML шаблоны
+4. Запустите сервер:
+```bash
+python server_manager.py
 ```
 
-## Поддержка воспроизведения медиафайлов
+## Сборка .deb пакета
 
-С последним обновлением добавлена поддержка воспроизведения аудио и видео прямо в браузере. Поддерживаются следующие форматы:
+### Подготовка
 
-- **Видео:** MP4, WebM, OGG, MOV, AVI, MKV
-- **Аудио:** MP3, WAV, OGG, FLAC, M4A
+1. Установите необходимые инструменты:
+```bash
+sudo apt-get install debhelper dh-python python3-all python3-setuptools
+```
 
-Для воспроизведения медиафайла просто нажмите кнопку воспроизведения (значок Play) на карточке соответствующего файла.
+2. Создайте структуру debian/:
+```bash
+mkdir -p debian/source
+```
 
-## Зависимости
+3. Создайте необходимые файлы:
 
-Flask==2.3.3
-Flask-Login==0.6.2
-Werkzeug==2.3.7
-gunicorn==21.2.0
-python-dotenv==1.0.0
-requests==2.31.0
-beautifulsoup4==4.12.2
-lxml==4.9.3
+debian/control:
+```
+Source: walpserver
+Section: web
+Priority: optional
+Maintainer: Your Name <your.email@example.com>
+Build-Depends: debhelper-compat (= 13), python3, python3-setuptools, python3-all, dh-python
+
+Package: walpserver
+Architecture: all
+Depends: ${python3:Depends}, ${misc:Depends}, python3, python3-venv, python3-pip, libxml2-dev, libxslt-dev, python3-dev
+Description: WalpServer - Media Server with Web Interface
+ A powerful media server with web interface for managing files,
+ torrent downloads, and media playback.
+ .
+ Features include:
+  * File management through web interface
+  * Torrent downloads and management
+  * Media playback
+  * System monitoring
+  * Beautiful and user-friendly interface
+```
+
+debian/rules:
+```makefile
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with python3
+
+override_dh_auto_install:
+	dh_auto_install
+	mkdir -p debian/walpserver/usr/share/walpserver
+	cp -r *.py requirements.txt static templates debian/walpserver/usr/share/walpserver/
+
+override_dh_installsystemd:
+	dh_installsystemd --name=walpserver
+```
+
+debian/changelog:
+```
+walpserver (1.0.0) unstable; urgency=medium
+
+  * Initial release.
+
+ -- Your Name <your.email@example.com>  Wed, 20 Mar 2024 12:00:00 +0000
+```
+
+debian/walpserver.service:
+```ini
+[Unit]
+Description=WalpServer Media Server
+After=network.target
+
+[Service]
+Type=simple
+User=walpserver
+Group=walpserver
+WorkingDirectory=/usr/share/walpserver
+ExecStart=/usr/share/walpserver/venv/bin/python server_manager.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+debian/postinst:
+```bash
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        # Create walpserver user and group if they don't exist
+        if ! getent group walpserver >/dev/null; then
+            addgroup --system walpserver
+        fi
+        if ! getent passwd walpserver >/dev/null; then
+            adduser --system --ingroup walpserver --home /usr/share/walpserver walpserver
+        fi
+
+        # Create virtual environment
+        python3 -m venv /usr/share/walpserver/venv
+
+        # Activate virtual environment and install dependencies
+        /usr/share/walpserver/venv/bin/pip install -r /usr/share/walpserver/requirements.txt
+
+        # Create necessary directories
+        mkdir -p /usr/share/walpserver/static/uploads
+        mkdir -p /usr/share/walpserver/static/torrents
+        mkdir -p /usr/share/walpserver/static/temp
+
+        # Set permissions
+        chown -R walpserver:walpserver /usr/share/walpserver
+        chmod -R 755 /usr/share/walpserver
+
+        # Enable and start service
+        systemctl daemon-reload
+        systemctl enable walpserver
+        systemctl start walpserver
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+exit 0
+```
+
+debian/prerm:
+```bash
+#!/bin/sh
+set -e
+
+case "$1" in
+    remove|upgrade|deconfigure)
+        # Stop and disable service
+        systemctl stop walpserver || true
+        systemctl disable walpserver || true
+    ;;
+
+    failed-upgrade)
+    ;;
+
+    *)
+        echo "prerm called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+exit 0
+```
+
+debian/source/format:
+```
+3.0 (native)
+```
+
+4. Сделайте скрипты исполняемыми:
+```bash
+chmod +x debian/rules debian/postinst debian/prerm
+```
+
+### Сборка
+
+Для сборки пакета выполните:
+```bash
+dpkg-buildpackage -us -uc
+```
+
+После успешной сборки в родительской директории появятся файлы:
+- walpserver_1.0.0_all.deb - сам пакет
+- walpserver_1.0.0.dsc - описание исходного пакета
+- walpserver_1.0.0.tar.xz - архив с исходным кодом
+- walpserver_1.0.0_amd64.buildinfo - информация о сборке
+- walpserver_1.0.0_amd64.changes - информация об изменениях
+
+## Управление сервисом
+
+После установки .deb пакета сервер запускается как системный сервис:
+
+```bash
+# Запуск сервера
+sudo systemctl start walpserver
+
+# Остановка сервера
+sudo systemctl stop walpserver
+
+# Статус сервера
+sudo systemctl status walpserver
+
+# Автозапуск при старте системы
+sudo systemctl enable walpserver
+```
+
+## Доступ к веб-интерфейсу
+
+После установки веб-интерфейс доступен по адресу:
+```
+http://localhost:5000
+```
+
+## Разработка
+
+### Структура проекта
+
+```
+walpserver/
+├── server.py          # Основной сервер
+├── server_manager.py  # Менеджер сервера с GUI
+├── config.py          # Конфигурация
+├── requirements.txt   # Зависимости
+├── static/           # Статические файлы
+└── templates/        # HTML шаблоны
+```
+
+### Зависимости
+
+- Flask
+- Flask-Login
+- Flask-CORS
+- Flet
+- psutil
+- и другие (см. requirements.txt)
 
 ## Лицензия
 
-Этот проект распространяется под лицензией MIT.
+MIT License

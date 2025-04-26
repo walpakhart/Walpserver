@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">WalpServer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+    <script src="{{ url_for('static', filename='js/translations.js') }}"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Мобильный хедер -->
+        <div class="mobile-header">
+            <div class="mobile-menu-button">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="mobile-logo">
+                <i class="fa-solid fa-cloud"></i> walpakhart.co
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <div class="logo">
+                <h2><i class="fa-solid fa-cloud"></i> walpakhart.co</h2>
+                <!-- Кнопка закрытия для мобильных устройств -->
+                <div class="close-sidebar">
+                    <i class="fa-solid fa-times"></i>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                <!-- Главное меню модулей -->
+                <div class="module-header">
+                    <h3 data-i18n="modules">Модули</h3>
+                </div>
+                <div class="menu-item active" data-module="cloud" id="cloud-module">
+                    <i class="fa-solid fa-cloud"></i> <span data-i18n="cloud">Облако</span>
+                </div>
+                <div class="menu-item" data-module="movies" id="movies-module">
+                    <i class="fa-solid fa-film"></i> <span data-i18n="movies">Фильмы</span>
+                </div>
+                
+                <!-- Меню категорий файлов (скрывается при переходе в другие модули) -->
+                <div class="cloud-menu">
+                    <div class="module-header">
+                        <h3 data-i18n="file_categories">Категории файлов</h3>
+                    </div>
+                    <div class="menu-item active" data-category="all" id="all-category">
+                        <i class="fa-solid fa-folder"></i> <span data-i18n="all_files">Все файлы</span>
+                    </div>
+                    <div class="menu-item" data-category="images" id="images-category">
+                        <i class="fa-solid fa-image"></i> <span data-i18n="images">Изображения</span>
+                    </div>
+                    <div class="menu-item" data-category="videos" id="videos-category">
+                        <i class="fa-solid fa-video"></i> <span data-i18n="videos">Видео</span>
+                    </div>
+                    <div class="menu-item" data-category="audio" id="audio-category">
+                        <i class="fa-solid fa-music"></i> <span data-i18n="audio">Аудио</span>
+                    </div>
+                    <div class="menu-item" data-category="documents" id="documents-category">
+                        <i class="fa-solid fa-file-lines"></i> <span data-i18n="documents">Документы</span>
+                    </div>
+                    <div class="menu-item" data-category="scripts" id="scripts-category">
+                        <i class="fa-solid fa-terminal"></i> <span data-i18n="scripts">Скрипты</span>
+                    </div>
+                    <div class="menu-item" data-category="code" id="code-category">
+                        <i class="fa-solid fa-code"></i> <span data-i18n="code">Код</span>
+                    </div>
+                    <div class="menu-item" data-category="archives" id="archives-category">
+                        <i class="fa-solid fa-file-zipper"></i> <span data-i18n="archives">Архивы</span>
+                    </div>
+                    <div class="menu-item" data-category="executables" id="executables-category">
+                        <i class="fa-solid fa-file-code"></i> <span data-i18n="executables">Программы</span>
+                    </div>
+                    <div class="menu-item" data-category="databases" id="databases-category">
+                        <i class="fa-solid fa-database"></i> <span data-i18n="databases">Базы данных</span>
+                    </div>
+                    <div class="menu-item" data-category="torrents" id="torrents-category">
+                        <i class="fa-solid fa-magnet"></i> <span data-i18n="torrents">Торренты</span>
+                    </div>
+                    <div class="menu-item" data-category="links" id="links-category">
+                        <i class="fa-solid fa-link"></i> <span data-i18n="links">Ссылки</span>
+                    </div>
+                    <div class="menu-item" data-category="other" id="other-category">
+                        <i class="fa-solid fa-box"></i> <span data-i18n="other">Прочее</span>
+                    </div>
+                    <div class="menu-item" id="notes-menu">
+                        <i class="fas fa-sticky-note"></i>
+                        <span data-i18n="notes">Заметки</span>
+                    </div>
+                    <div class="menu-item" id="file-links-menu">
+                        <i class="fas fa-file-export"></i>
+                        <span data-i18n="file_links">Файловые ссылки</span>
+                    </div>
+                </div>
+                
+                <!-- Меню для модуля фильмов (скрыто по умолчанию) -->
+                <div class="movies-menu hidden">
+                    <div class="module-header">
+                        <h3 data-i18n="movies">Фильмы</h3>
+                    </div>
+                    <div class="menu-item active" data-movie-filter="all" id="all-filter">
+                        <i class="fa-solid fa-film"></i> <span data-i18n="all_movies">Все фильмы</span>
+                    </div>
+                    <div class="menu-item" data-movie-filter="unwatched" id="unwatched-filter">
+                        <i class="fa-solid fa-eye-slash"></i> <span data-i18n="unwatched">Не просмотренные</span>
+                    </div>
+                    <div class="menu-item" data-movie-filter="watched" id="watched-filter">
+                        <i class="fa-solid fa-eye"></i> <span data-i18n="watched">Просмотренные</span>
+                    </div>
+                    <div class="menu-item" id="movie-search-menu">
+                        <i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="search_movies">Поиск фильмов</span>
+                    </div>
+                </div>
+                
+                <!-- Переключатель языка -->
+                <div class="language-selector">
+                    <div class="module-header">
+                        <h3 data-i18n="language">Язык</h3>
+                    </div>
+                    <div class="language-options">
+                        <div class="language-option" data-lang="ru">
+                            <span>Русский</span>
+                        </div>
+                        <div class="language-option" data-lang="en">
+                            <span>English</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-card">
+                    <h3 data-i18n="statistics">Статистика</h3>
+                    <div id="stats-container">
+                        <div class="stats-item">
+                            <i class="fa-solid fa-file"></i>
+                            <span id="files-count">--</span> <span data-i18n="files_count">файлов</span>
+                        </div>
+                        <div class="stats-item">
+                            <i class="fa-solid fa-link"></i>
+                            <span id="links-count">--</span> <span data-i18n="links_count">ссылок</span>
+                        </div>
+                        <div class="stats-item">
+                            <i class="fa-solid fa-hard-drive"></i>
+                            <span id="total-size">--</span> <span data-i18n="total_size">занято</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <span>{{ current_user.username }}</span>
+                <a href="{{ url_for('logout') }}" class="logout-link">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="toolbar">
+                <div class="search-box">
+                    <i class="fa-solid fa-search search-icon"></i>
+                    <input type="text" id="search" placeholder="Поиск файлов..." data-i18n="search_files">
+                </div>
+                <div class="sort-options">
+                    <select id="sort-by">
+                        <option value="date" data-i18n="sort_by_date">По дате</option>
+                        <option value="name" data-i18n="sort_by_name">По имени</option>
+                        <option value="size" data-i18n="sort_by_size">По размеру</option>
+                    </select>
+                    <select id="sort-order">
+                        <option value="desc" data-i18n="sort_order_desc">По убыванию</option>
+                        <option value="asc" data-i18n="sort_order_asc">По возрастанию</option>
+                    </select>
+                </div>
+                <div class="action-buttons">
+                    <button id="add-link-button" class="btn-secondary">
+                        <i class="fa-solid fa-plus"></i> <span data-i18n="add_link">Добавить ссылку</span>
+                    </button>
+                    <label for="file-upload" class="btn-primary">
+                        <i class="fa-solid fa-arrow-up-from-bracket"></i> <span data-i18n="upload_file">Загрузить файл</span>
+                    </label>
+                    <input id="file-upload" type="file" style="display: none;">
+                </div>
+            </div>
+            
+            <div class="files-container" id="files-container">
+                <div class="loading">
+                    <i class="fa-solid fa-spinner fa-spin"></i> <span data-i18n="loading_files">Загрузка файлов...</span>
+                </div>
+            </div>
+
+            <div class="notes-container hidden">
+                <div class="notes-header">
+                    <h2 data-i18n="my_notes">Мои заметки</h2>
+                    <button id="add-note-btn" class="btn-add">
+                        <i class="fas fa-plus"></i> <span data-i18n="new_note">Новая заметка</span>
+                    </button>
+                </div>
+                
+                <div class="notes-list">
+                    <!-- Заметки будут добавлены сюда динамически -->
+                </div>
+                
+                <!-- Модальное окно для создания/редактирования заметки -->
+                <div id="note-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 id="note-modal-title" data-i18n="new_note">Новая заметка</h2>
+                            <span class="close">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="note-id">
+                            <div class="form-group">
+                                <label for="note-title" data-i18n="note_title">Заголовок</label>
+                                <input type="text" id="note-title" data-i18n-placeholder="enter_note_title" placeholder="Введите заголовок заметки">
+                            </div>
+                            <div class="form-group">
+                                <label for="note-content" data-i18n="note_content">Содержание</label>
+                                <textarea id="note-content" data-i18n-placeholder="enter_note_content" placeholder="Введите содержание заметки"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="note-priority" data-i18n="note_priority">Приоритет</label>
+                                <select id="note-priority">
+                                    <option value="0" data-i18n="priority_normal">Обычный</option>
+                                    <option value="1" data-i18n="priority_important">Важный</option>
+                                    <option value="2" data-i18n="priority_urgent">Срочный</option>
+                                </select>
+                            </div>
+                            <div class="form-actions">
+                                <button id="save-note-btn" class="btn-primary" data-i18n="save">Сохранить</button>
+                                <button class="close-modal btn-secondary" data-i18n="cancel">Отмена</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Контейнер для модуля фильмов -->
+            <div class="movies-container hidden" id="movies-container">
+                <div class="movies-header">
+                    <h2 data-i18n="my_movies">Мои фильмы</h2>
+                </div>
+                
+                <div class="movies-filter">
+                    <button class="filter-btn active" data-filter="all" data-i18n="all">Все</button>
+                    <button class="filter-btn" data-filter="unwatched" data-i18n="unwatched">Смотреть</button>
+                    <button class="filter-btn" data-filter="watched" data-i18n="watched">Просмотренные</button>
+                </div>
+                
+                <div class="movies-list">
+                    <!-- Фильмы будут добавлены сюда динамически -->
+                </div>
+            </div>
+
+            <!-- Контейнер для поиска фильмов -->
+            <div class="movie-search-container hidden" id="movie-search-container">
+                <div class="movie-search-header">
+                    <h2 data-i18n="movie_search">Поиск фильмов</h2>
+                </div>
+                
+                <div class="centered-search">
+                    <div class="search-box big-search">
+                        <i class="fa-solid fa-search search-icon"></i>
+                        <input type="text" id="movie-search-input" data-i18n-placeholder="search_movie_placeholder" placeholder="Введите название фильма...">
+                    </div>
+                    <button id="movie-search-button" class="btn-primary" data-i18n="find">
+                        <i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="find">Найти</span>
+                    </button>
+                </div>
+                
+                <div class="movie-search-results-list">
+                    <!-- Результаты поиска будут добавлены сюда динамически -->
+                </div>
+            </div>
+                
+            <!-- Результаты поиска для добавления фильма -->
+            <div id="movie-search-results" class="hidden">
+                <div class="search-results-header">
+                    <h3 data-i18n="search_results">Результаты поиска</h3>
+                    <button class="close-search-results">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                </div>
+                <div class="search-results-container">
+                    <!-- Результаты поиска будут добавлены сюда -->
+                </div>
+            </div>
+
+            <!-- Контейнер для файловых ссылок -->
+            <div class="file-links-container hidden" id="file-links-container">
+                <div class="file-links-header">
+                    <h2 data-i18n="my_file_links">Мои файловые ссылки</h2>
+                    <div class="file-links-actions">
+                        <button id="refresh-file-links-btn" class="btn-secondary">
+                            <i class="fas fa-sync-alt"></i> <span data-i18n="refresh">Обновить</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="file-links-list">
+                    <!-- Файловые ссылки будут добавлены динамически -->
+                    <div class="loading-file-links">
+                        <i class="fa-solid fa-spinner fa-spin"></i> <span data-i18n="loading_file_links">Загрузка файловых ссылок...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для добавления ссылки -->
+    <div id="add-link-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-i18n="add_link_title">Добавить ссылку</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="link-title" data-i18n="link_name">Название</label>
+                    <input type="text" id="link-title" data-i18n-placeholder="enter_link_name" placeholder="Введите название">
+                </div>
+                <div class="input-group">
+                    <label for="link-url" data-i18n="link_url">URL</label>
+                    <input type="url" id="link-url" data-i18n-placeholder="enter_link_url" placeholder="https://example.com">
+                </div>
+                <div class="input-group">
+                    <label for="link-description" data-i18n="link_description">Описание (необязательно)</label>
+                    <textarea id="link-description" data-i18n-placeholder="enter_link_description" placeholder="Описание ссылки"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancel-link" data-i18n="cancel">Отмена</button>
+                <button class="btn-primary" id="save-link" data-i18n="save">Сохранить</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для предпросмотра файла -->
+    <div id="preview-modal" class="modal">
+        <div class="modal-content preview-modal-content">
+            <div class="modal-header">
+                <h2 id="preview-file-name" data-i18n="file_preview">Предпросмотр файла</h2>
+                <span class="close-modal" id="close-preview">&times;</span>
+            </div>
+            <div class="modal-body preview-body">
+                <div class="preview-loading">
+                    <i class="fa-solid fa-spinner fa-spin"></i> <span data-i18n="loading_preview">Загрузка предпросмотра...</span>
+                </div>
+                <div class="preview-content"></div>
+                <div class="preview-error" style="display: none;">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span class="error-message"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn-primary" id="download-preview" data-i18n="download_file">Скачать файл</a>
+                <button class="btn-secondary" id="close-preview-btn" data-i18n="close">Закрыть</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для просмотра информации о фильме -->
+    <div id="movie-modal" class="modal">
+        <div class="modal-content movie-modal-content">
+            <div class="modal-header">
+                <h2 id="movie-title">Название фильма</h2>
+                <span class="close-modal" id="close-movie-modal">&times;</span>
+            </div>
+            <div class="modal-body movie-body">
+                <div class="movie-info-container">
+                    <div class="movie-poster">
+                        <img id="movie-poster-img" src="" alt="Movie Poster">
+                    </div>
+                    <div class="movie-details">
+                        <div class="movie-detail">
+                            <span class="detail-label" data-i18n="original_title">Оригинальное название:</span>
+                            <span id="movie-original-title">-</span>
+                        </div>
+                        <div class="movie-detail">
+                            <span class="detail-label" data-i18n="year">Год:</span>
+                            <span id="movie-year">-</span>
+                        </div>
+                        <div class="movie-detail">
+                            <span class="detail-label" data-i18n="rating">Рейтинг:</span>
+                            <span id="movie-rating">-</span>
+                        </div>
+                        <div class="movie-detail">
+                            <span class="detail-label" data-i18n="genres">Жанры:</span>
+                            <span id="movie-genres">-</span>
+                        </div>
+                        <div class="movie-detail">
+                            <span class="detail-label" data-i18n="status">Статус:</span>
+                            <span id="movie-watched-status" data-i18n="not_watched">Не просмотрен</span>
+                        </div>
+                        <div class="movie-description" id="movie-description" data-i18n="no_description">
+                            Нет описания.
+                        </div>
+                        <!-- Добавляем раздел для торрентов -->
+                        <div class="movie-torrents-section">
+                            <div class="torrents-header">
+                                <h3 data-i18n="torrents">Торренты</h3>
+                                <button id="search-torrents-btn" class="btn-sm">
+                                    <i class="fa-solid fa-search"></i>
+                                    <span data-i18n="search_torrents">Найти торренты</span>
+                                </button>
+                            </div>
+                            <div id="torrents-loading" class="hidden">
+                                <i class="fa-solid fa-spinner fa-spin"></i>
+                                <span data-i18n="loading_torrents">Поиск торрентов...</span>
+                            </div>
+                            <div id="torrents-results" class="hidden">
+                                <div class="torrents-list">
+                                    <!-- Список торрентов будет добавлен динамически -->
+                                </div>
+                            </div>
+                            <div id="torrents-error" class="hidden">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                <span data-i18n="torrents_not_found">Торренты не найдены</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" id="watch-movie-btn" data-i18n="watch_movie">Смотреть фильм</button>
+                <button class="btn-secondary" id="toggle-watched-btn" data-i18n="mark_as_watched">Отметить просмотренным</button>
+                <button class="btn-danger" id="delete-movie-btn" data-i18n="delete_from_list">Удалить из списка</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для просмотра фильма через iframe -->
+    <div id="movie-watch-modal" class="modal">
+        <div class="modal-content movie-watch-modal-content">
+            <div class="modal-header">
+                <h2 id="watch-movie-title" data-i18n="movie_watching">Просмотр фильма</h2>
+                <span class="close-modal" id="close-watch-movie-modal">&times;</span>
+            </div>
+            <div class="modal-body movie-watch-body">
+                <div class="movie-iframe-container">
+                    <iframe id="movie-iframe" src="" frameborder="0" allowfullscreen></iframe>
+                    <!-- Индикатор загрузки будет добавлен динамически -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" id="open-external-btn" data-i18n="open_in_new_tab">Открыть в новой вкладке</button>
+                <button class="btn-secondary" id="close-watch-btn" data-i18n="close">Закрыть</button>
+            </div>
+            <!-- Мобильные контролы, видимые только на малых экранах -->
+            <div class="movie-controls">
+                <button class="btn-primary" id="mobile-open-external-btn">
+                    <i class="fa-solid fa-external-link-alt"></i>
+                    <span data-i18n="open_in_new_tab">Открыть в новой вкладке</span>
+                </button>
+                <button class="btn-secondary" id="mobile-close-watch-btn">
+                    <i class="fa-solid fa-times"></i>
+                    <span data-i18n="close">Закрыть</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для выбора категории торрента -->
+    <div id="torrent-category-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-i18n="select_torrent_category">Выберите категорию торрента</h2>
+                <span class="close-modal" id="close-torrent-category">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p data-i18n="torrent_category_description">Пожалуйста, выберите категорию для торрент-файла:</p>
+                <div class="input-group">
+                    <select id="torrent-category-select">
+                        <!-- Категории будут загружены динамически -->
+                    </select>
+                </div>
+                <div class="input-group hidden" id="torrent-file-info">
+                    <p><strong data-i18n="file_to_upload">Файл для загрузки</strong>: <span id="torrent-filename"></span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancel-torrent-upload" data-i18n="cancel">Отмена</button>
+                <button class="btn-primary" id="confirm-torrent-upload" data-i18n="upload">Загрузить</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript модули в правильном порядке загрузки -->
+    <script src="{{ url_for('static', filename='js/modules/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modules/cloud.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modules/movies.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modules/notes.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modules/tv-mode.js') }}"></script>
+    <!-- Основной файл скриптов должен загружаться последним -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    
+    <script>
+        // Переменные для контейнеров
+        const fileContainer = document.getElementById('file-container');
+        const uploadForm = document.getElementById('upload-form');
+        const fileDropZone = document.getElementById('drop-zone');
+        const fileUploadInput = document.getElementById('file-upload');
+        const fileUploadButton = document.querySelector('.upload-button');
+        const fileSearchInput = document.getElementById('file-search');
+        const clearSearchButton = document.getElementById('clear-search');
+        const notesContainer = document.getElementById('notes-container');
+        const fileLinksContainer = document.getElementById('file-links-container');
+        const movieContainer = document.getElementById('movie-container');
+        const movieSearchContainer = document.getElementById('movie-search-container');
+        const cloudMenu = document.querySelector('.cloud-menu');
+        const moviesMenu = document.querySelector('.movies-menu');
+
+        // Переменные для меню
+        const cloudButton = document.getElementById('cloud-module');
+        const moviesButton = document.getElementById('movies-module');
+        const fileLinksMenu = document.getElementById('file-links-menu');
+        const notesMenu = document.getElementById('notes-menu');
+        const movieSearchMenu = document.getElementById('movie-search-menu');
+
+        // Функция для деактивации всех пунктов меню
+        function deactivateAllMenuItems() {
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+
+        // Функция для сохранения активного пункта меню
+        function saveActiveMenuItem(menuId) {
+            sessionStorage.setItem('activeMenuId', menuId);
+            
+            // Сохраняем также активный модуль (облако или фильмы)
+            if (cloudMenu.classList.contains('hidden')) {
+                sessionStorage.setItem('activeModule', 'movies');
+            } else {
+                sessionStorage.setItem('activeModule', 'cloud');
+            }
+        }
+
+        // Функция для восстановления активного пункта меню при загрузке страницы
+        function restoreActiveMenuItem() {
+            const activeMenuId = sessionStorage.getItem('activeMenuId');
+            const activeModule = sessionStorage.getItem('activeModule');
+            
+            if (activeModule) {
+                if (activeModule === 'movies') {
+                    // Активируем модуль фильмов
+                    cloudMenu.classList.add('hidden');
+                    moviesMenu.classList.remove('hidden');
+                    cloudButton.classList.remove('active');
+                    moviesButton.classList.add('active');
+                    
+                    // Скрываем/показываем соответствующие контейнеры
+                    fileContainer.classList.add('hidden');
+                    movieContainer.classList.remove('hidden');
+                    notesContainer.classList.add('hidden');
+                    fileLinksContainer.classList.add('hidden');
+                    movieSearchContainer.classList.add('hidden');
+                } else {
+                    // Активируем модуль облака
+                    cloudMenu.classList.remove('hidden');
+                    moviesMenu.classList.add('hidden');
+                    cloudButton.classList.add('active');
+                    moviesButton.classList.remove('active');
+                }
+            }
+            
+            if (activeMenuId) {
+                const menuItem = document.getElementById(activeMenuId);
+                if (menuItem) {
+                    deactivateAllMenuItems();
+                    menuItem.classList.add('active');
+                    
+                    // Показываем соответствующие контейнеры в зависимости от активного пункта меню
+                    if (activeMenuId === 'notes-menu') {
+                        fileContainer.classList.add('hidden');
+                        notesContainer.classList.remove('hidden');
+                        fileLinksContainer.classList.add('hidden');
+                        movieContainer.classList.add('hidden');
+                        movieSearchContainer.classList.add('hidden');
+                    } else if (activeMenuId === 'file-links-menu') {
+                        fileContainer.classList.add('hidden');
+                        notesContainer.classList.add('hidden');
+                        fileLinksContainer.classList.remove('hidden');
+                        movieContainer.classList.add('hidden');
+                        movieSearchContainer.classList.add('hidden');
+                        loadFileLinks(); // Загружаем список файловых ссылок
+                    } else if (activeMenuId === 'movie-search-menu') {
+                        fileContainer.classList.add('hidden');
+                        notesContainer.classList.add('hidden');
+                        fileLinksContainer.classList.add('hidden');
+                        movieContainer.classList.add('hidden');
+                        movieSearchContainer.classList.remove('hidden');
+                    } else if (activeModule === 'cloud') {
+                        // Категории облака
+                        fileContainer.classList.remove('hidden');
+                        notesContainer.classList.add('hidden');
+                        fileLinksContainer.classList.add('hidden');
+                        movieContainer.classList.add('hidden');
+                        movieSearchContainer.classList.add('hidden');
+                    }
+                }
+            }
+        }
+
+        // Обработчики событий для переключения между модулями
+        cloudButton.addEventListener('click', function() {
+            cloudMenu.classList.remove('hidden');
+            moviesMenu.classList.add('hidden');
+            cloudButton.classList.add('active');
+            moviesButton.classList.remove('active');
+            
+            // Показываем контейнер файлов и скрываем остальные контейнеры
+            fileContainer.classList.remove('hidden');
+            movieContainer.classList.add('hidden');
+            movieSearchContainer.classList.add('hidden');
+            notesContainer.classList.add('hidden');
+            fileLinksContainer.classList.add('hidden');
+            
+            // Активируем пункт меню "Все файлы" по умолчанию
+            deactivateAllMenuItems();
+            document.getElementById('all-category').classList.add('active');
+            saveActiveMenuItem('all-category');
+        });
+        
+        moviesButton.addEventListener('click', function() {
+            moviesMenu.classList.remove('hidden');
+            cloudMenu.classList.add('hidden');
+            moviesButton.classList.add('active');
+            cloudButton.classList.remove('active');
+            
+            // Показываем контейнер фильмов и скрываем остальные контейнеры
+            movieContainer.classList.remove('hidden');
+            fileContainer.classList.add('hidden');
+            movieSearchContainer.classList.add('hidden');
+            notesContainer.classList.add('hidden');
+            fileLinksContainer.classList.add('hidden');
+            
+            // Активируем пункт меню "Все фильмы" по умолчанию
+            deactivateAllMenuItems();
+            document.getElementById('all-filter').classList.add('active');
+            saveActiveMenuItem('all-filter');
+        });
+
+        // Обработчик нажатия на пункт меню "Файловые ссылки"
+        fileLinksMenu.addEventListener('click', function() {
+            // Скрываем другие контейнеры
+            fileContainer.classList.add('hidden');
+            notesContainer.classList.add('hidden');
+            movieContainer.classList.add('hidden');
+            movieSearchContainer.classList.add('hidden');
+            
+            // Деактивируем все пункты меню и делаем активным пункт "Файловые ссылки"
+            deactivateAllMenuItems();
+            fileLinksMenu.classList.add('active');
+            saveActiveMenuItem('file-links-menu');
+            
+            // Показываем контейнер файловых ссылок
+            fileLinksContainer.classList.remove('hidden');
+            
+            // Загружаем список файловых ссылок
+            loadFileLinks();
+        });
+        
+        // Обработчик нажатия на пункт меню "Заметки"
+        notesMenu.addEventListener('click', function() {
+            // Скрываем другие контейнеры
+            fileContainer.classList.add('hidden');
+            fileLinksContainer.classList.add('hidden');
+            movieContainer.classList.add('hidden');
+            movieSearchContainer.classList.add('hidden');
+            
+            // Деактивируем все пункты меню и делаем активным пункт "Заметки"
+            deactivateAllMenuItems();
+            notesMenu.classList.add('active');
+            saveActiveMenuItem('notes-menu');
+            
+            // Показываем контейнер заметок
+            notesContainer.classList.remove('hidden');
+        });
+        
+        // Обработчик нажатия на пункт меню "Поиск фильмов"
+        movieSearchMenu.addEventListener('click', function() {
+            // Скрываем другие контейнеры
+            fileContainer.classList.add('hidden');
+            fileLinksContainer.classList.add('hidden');
+            movieContainer.classList.add('hidden');
+            notesContainer.classList.add('hidden');
+            
+            // Деактивируем все пункты меню и делаем активным пункт "Поиск фильмов"
+            deactivateAllMenuItems();
+            movieSearchMenu.classList.add('active');
+            saveActiveMenuItem('movie-search-menu');
+            
+            // Показываем контейнер поиска фильмов
+            movieSearchContainer.classList.remove('hidden');
+        });
+
+        // Обработчики нажатия на пункты меню категорий в облачном модуле
+        document.querySelectorAll('.cloud-menu .menu-item[data-category]').forEach(menuItem => {
+            menuItem.addEventListener('click', function() {
+                // Деактивируем все пункты меню и делаем активным текущий пункт
+                deactivateAllMenuItems();
+                this.classList.add('active');
+                saveActiveMenuItem(this.id);
+                
+                // Показываем контейнер файлов и скрываем остальные контейнеры
+                fileContainer.classList.remove('hidden');
+                notesContainer.classList.add('hidden');
+                fileLinksContainer.classList.add('hidden');
+                movieContainer.classList.add('hidden');
+                movieSearchContainer.classList.add('hidden');
+            });
+        });
+        
+        // Обработчики нажатия на пункты меню фильтров в модуле фильмов
+        document.querySelectorAll('.movies-menu .menu-item[data-movie-filter]').forEach(menuItem => {
+            menuItem.addEventListener('click', function() {
+                // Деактивируем все пункты меню и делаем активным текущий пункт
+                deactivateAllMenuItems();
+                this.classList.add('active');
+                saveActiveMenuItem(this.id);
+                
+                // Показываем контейнер фильмов и скрываем остальные контейнеры
+                movieContainer.classList.remove('hidden');
+                fileContainer.classList.add('hidden');
+                notesContainer.classList.add('hidden');
+                fileLinksContainer.classList.add('hidden');
+                movieSearchContainer.classList.add('hidden');
+            });
+        });
+
+        // Восстанавливаем активный пункт меню при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            restoreActiveMenuItem();
+        });
+
+        // JavaScript для управления файловыми ссылками
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileLinksMenu = document.getElementById('file-links-menu');
+            const fileLinksContainer = document.getElementById('file-links-container');
+            const refreshFileLinksBtn = document.getElementById('refresh-file-links-btn');
+            const notesMenu = document.getElementById('notes-menu');
+            const notesContainer = document.querySelector('.notes-container');
+            const cloudMenu = document.querySelector('.cloud-menu');
+            const moviesMenu = document.querySelector('.movies-menu');
+            
+            // Функция для деактивации всех пунктов меню
+            function deactivateAllMenuItems() {
+                document.querySelectorAll('.sidebar .menu-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+            }
+            
+            // Функция для сохранения активного пункта меню в sessionStorage
+            function saveActiveMenuItem(menuId) {
+                if (typeof(Storage) !== "undefined") {
+                    sessionStorage.setItem("activeMenuItem", menuId);
+                }
+            }
+            
+            // Восстановление активного пункта меню при загрузке страницы
+            function restoreActiveMenuItem() {
+                if (typeof(Storage) !== "undefined") {
+                    const activeMenuId = sessionStorage.getItem("activeMenuItem");
+                    if (activeMenuId) {
+                        const activeItem = document.getElementById(activeMenuId);
+                        if (activeItem) {
+                            // Имитируем клик по активному пункту меню
+                            activeItem.click();
+                        }
+                    }
+                }
+            }
+            
+            // Обработчик для переключения между модулями (облако/фильмы)
+            document.querySelectorAll('[data-module]').forEach(moduleBtn => {
+                moduleBtn.addEventListener('click', function() {
+                    const moduleType = this.getAttribute('data-module');
+                    const moduleId = this.id;
+                    
+                    // Сохраняем активный пункт меню
+                    saveActiveMenuItem(moduleId);
+                    
+                    // Деактивируем все пункты меню
+                    deactivateAllMenuItems();
+                    
+                    // Активируем только текущую кнопку модуля
+                    this.classList.add('active');
+                    
+                    // Скрываем все контейнеры в главном содержимом
+                    document.querySelectorAll('.main-content > div').forEach(container => {
+                        container.classList.add('hidden');
+                    });
+                    
+                    // Показываем соответствующие меню и контейнеры
+                    if (moduleType === 'cloud') {
+                        // Показываем облачное меню, скрываем меню фильмов
+                        cloudMenu.classList.remove('hidden');
+                        moviesMenu.classList.add('hidden');
+                        
+                        // Активируем пункт "Все файлы" по умолчанию
+                        const allFilesItem = document.querySelector('.menu-item[data-category="all"]');
+                        if (allFilesItem) {
+                            allFilesItem.classList.add('active');
+                            document.getElementById('files-container').classList.remove('hidden');
+                        }
+                    } else if (moduleType === 'movies') {
+                        // Показываем меню фильмов, скрываем облачное меню
+                        moviesMenu.classList.remove('hidden');
+                        cloudMenu.classList.add('hidden');
+                        
+                        // Активируем пункт "Все фильмы" по умолчанию
+                        const allMoviesItem = document.querySelector('.movies-menu .menu-item[data-movie-filter="all"]');
+                        if (allMoviesItem) {
+                            allMoviesItem.classList.add('active');
+                            document.getElementById('movies-container').classList.remove('hidden');
+                        }
+                    }
+                });
+            });
+            
+            // Обработчик нажатия на пункт меню "Файловые ссылки"
+            fileLinksMenu.addEventListener('click', function() {
+                // Сохраняем активный пункт меню
+                saveActiveMenuItem('file-links-menu');
+                
+                // Скрываем другие контейнеры
+                document.querySelectorAll('.main-content > div').forEach(container => {
+                    if (container !== fileLinksContainer) {
+                        container.classList.add('hidden');
+                    }
+                });
+                
+                // Делаем активным только пункт меню файловых ссылок
+                deactivateAllMenuItems();
+                fileLinksMenu.classList.add('active');
+                
+                // Показываем контейнер файловых ссылок
+                fileLinksContainer.classList.remove('hidden');
+                
+                // Загружаем список файловых ссылок
+                loadFileLinks();
+            });
+            
+            // Обработчик для меню категорий файлов
+            document.querySelectorAll('.cloud-menu .menu-item[data-category]').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Сохраняем активный пункт меню по data-category
+                    const category = this.getAttribute('data-category');
+                    saveActiveMenuItem(category + '-category');
+                    
+                    deactivateAllMenuItems();
+                    this.classList.add('active');
+                    
+                    // Скрываем файловые ссылки и заметки
+                    fileLinksContainer.classList.add('hidden');
+                    if (notesContainer) {
+                        notesContainer.classList.add('hidden');
+                    }
+                    
+                    // Показываем контейнер файлов
+                    document.getElementById('files-container').classList.remove('hidden');
+                });
+            });
+            
+            // Обработчик для меню в разделе фильмов
+            document.querySelectorAll('.movies-menu .menu-item[data-movie-filter]').forEach(item => {
+                item.addEventListener('click', function() {
+                    // Сохраняем активный пункт меню по data-movie-filter
+                    const filter = this.getAttribute('data-movie-filter');
+                    saveActiveMenuItem(filter + '-filter');
+                    
+                    deactivateAllMenuItems();
+                    this.classList.add('active');
+                    
+                    // Показываем контейнер фильмов
+                    document.getElementById('movies-container').classList.remove('hidden');
+                });
+            });
+            
+            // Обработчик для меню заметок, если оно есть
+            if (notesMenu && notesContainer) {
+                notesMenu.addEventListener('click', function() {
+                    // Сохраняем активный пункт меню
+                    saveActiveMenuItem('notes-menu');
+                    
+                    // Скрываем другие контейнеры
+                    document.querySelectorAll('.main-content > div').forEach(container => {
+                        if (container !== notesContainer) {
+                            container.classList.add('hidden');
+                        }
+                    });
+                    
+                    // Деактивируем все пункты меню и активируем заметки
+                    deactivateAllMenuItems();
+                    notesMenu.classList.add('active');
+                    
+                    // Показываем контейнер заметок
+                    notesContainer.classList.remove('hidden');
+                });
+            }
+            
+            // Загружаем состояние активного меню при загрузке страницы
+            if (window.location.hash !== '#no-restore') {
+                setTimeout(restoreActiveMenuItem, 100);
+            }
+            
+            // Обработчик кнопки обновления списка
+            refreshFileLinksBtn.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                icon.classList.add('fa-spin');
+                loadFileLinks().finally(() => {
+                    setTimeout(() => {
+                        icon.classList.remove('fa-spin');
+                    }, 500);
+                });
+            });
+            
+            // Функция для загрузки списка файловых ссылок
+            function loadFileLinks() {
+                const fileLinksListElement = document.querySelector('.file-links-list');
+                const loadingElement = document.querySelector('.loading-file-links');
+                
+                loadingElement.style.display = 'flex';
+                
+                return fetch('/file_links')
+                    .then(response => response.json())
+                    .then(data => {
+                        loadingElement.style.display = 'none';
+                        
+                        if (data.status === 'success') {
+                            renderFileLinks(data.file_links, fileLinksListElement);
+                        } else {
+                            fileLinksListElement.innerHTML = '<div class="error-message">' + data.message + '</div>';
+                        }
+                    })
+                    .catch(error => {
+                        loadingElement.style.display = 'none';
+                        fileLinksListElement.innerHTML = '<div class="error-message">Ошибка при загрузке файловых ссылок: ' + error.message + '</div>';
+                    });
+            }
+            
+            // Функция для отображения списка файловых ссылок
+            function renderFileLinks(fileLinks, container) {
+                if (fileLinks.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-message">
+                            <i class="fas fa-link-slash fa-3x" style="margin-bottom: 15px; opacity: 0.6;"></i>
+                            <p>У вас пока нет файловых ссылок</p>
+                        </div>`;
+                    return;
+                }
+                
+                let html = '';
+                
+                fileLinks.forEach(link => {
+                    const dateFormatted = new Date(link.upload_date).toLocaleString();
+                    const expiryFormatted = link.expiry_date ? new Date(link.expiry_date).toLocaleString() : 'Бессрочно';
+                    const statusClass = link.is_active ? 'active-link' : 'inactive-link';
+                    const statusText = link.is_active ? 'Активна' : 'Неактивна';
+                    const statusIcon = link.is_active ? 'fa-check-circle' : 'fa-times-circle';
+                    
+                    // Получаем расширение файла
+                    const extension = getFileExtension(link.original_filename);
+                    
+                    html += `
+                    <div class="file-link-item ${statusClass}" data-id="${link.share_id}">
+                        <div class="file-link-icon">
+                            <i class="fas ${getCategoryIcon(link.category)}"></i>
+                        </div>
+                        <div class="file-link-info">
+                            <div class="file-link-name" data-extension="${extension}">${link.original_filename}</div>
+                            <div class="file-link-details">
+                                <span class="file-link-date">${dateFormatted}</span>
+                                <span class="file-link-category">${link.category}</span>
+                                <span class="file-link-expiry">${expiryFormatted}</span>
+                                <span class="file-link-status"><i class="fas ${statusIcon}"></i> ${statusText}</span>
+                            </div>
+                            <div class="file-link-url">
+                                <i class="fas fa-link" style="margin: 0 8px 0 5px; opacity: 0.7;"></i>
+                                <input type="text" readonly value="${link.share_url}" class="file-link-url-input">
+                                <button class="copy-btn" data-url="${link.share_url}" title="Копировать ссылку"><i class="fas fa-copy"></i></button>
+                            </div>
+                        </div>
+                        <div class="file-link-actions">
+                            <a href="${link.share_url}" target="_blank" class="btn-view" title="Открыть ссылку">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                            <button class="btn-delete" data-id="${link.share_id}" title="Удалить ссылку">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    `;
+                });
+                
+                container.innerHTML = html;
+                
+                // Эффект анимации появления элементов
+                const items = container.querySelectorAll('.file-link-item');
+                items.forEach((item, index) => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+                
+                // Добавляем обработчики для кнопок копирования
+                document.querySelectorAll('.copy-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const url = this.getAttribute('data-url');
+                        navigator.clipboard.writeText(url).then(() => {
+                            // Добавляем визуальный эффект успешного копирования
+                            this.classList.add('copied');
+                            this.querySelector('i').classList.remove('fa-copy');
+                            this.querySelector('i').classList.add('fa-check');
+                            
+                            // Анимируем поле ввода
+                            const input = this.parentElement.querySelector('input');
+                            input.classList.add('highlight-success');
+                            
+                            showNotification('Ссылка скопирована в буфер обмена', 'success');
+                            
+                            // Возвращаем исходный вид после анимации
+                            setTimeout(() => {
+                                this.classList.remove('copied');
+                                this.querySelector('i').classList.remove('fa-check');
+                                this.querySelector('i').classList.add('fa-copy');
+                                input.classList.remove('highlight-success');
+                            }, 2000);
+                        });
+                    });
+                });
+                
+                // Добавляем обработчики для кнопок удаления
+                document.querySelectorAll('.btn-delete').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const linkId = this.getAttribute('data-id');
+                        const fileItem = this.closest('.file-link-item');
+                        
+                        if (confirm('Вы уверены, что хотите удалить эту ссылку? Файл останется в вашем облаке.')) {
+                            // Добавляем эффект удаления
+                            fileItem.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                            fileItem.style.opacity = '0.5';
+                            fileItem.style.transform = 'translateX(30px)';
+                            
+                            fetch(`/delete_file_link/${linkId}`, {
+                                method: 'DELETE'
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    // Анимируем удаление элемента
+                                    fileItem.style.opacity = '0';
+                                    fileItem.style.transform = 'translateX(100px)';
+                                    fileItem.style.maxHeight = '0';
+                                    fileItem.style.margin = '0';
+                                    fileItem.style.padding = '0';
+                                    fileItem.style.overflow = 'hidden';
+                                    
+                                    setTimeout(() => {
+                                        loadFileLinks(); // Перезагружаем список ссылок
+                                    }, 500);
+                                    
+                                    showNotification(data.message, 'success');
+                                } else {
+                                    // Возвращаем элемент в нормальное состояние
+                                    fileItem.style.opacity = '1';
+                                    fileItem.style.transform = 'translateX(0)';
+                                    showNotification(data.message, 'error');
+                                }
+                            })
+                            .catch(error => {
+                                // Возвращаем элемент в нормальное состояние
+                                fileItem.style.opacity = '1';
+                                fileItem.style.transform = 'translateX(0)';
+                                showNotification('Ошибка при удалении ссылки: ' + error.message, 'error');
+                            });
+                        }
+                    });
+                });
+                
+                // Добавляем интерактивность при наведении на элементы
+                items.forEach(item => {
+                    item.addEventListener('mouseenter', function() {
+                        const icon = this.querySelector('.file-link-icon i');
+                        icon.classList.add('fa-bounce');
+                        setTimeout(() => {
+                            icon.classList.remove('fa-bounce');
+                        }, 1000);
+                    });
+                    
+                    // Делаем поле ввода выделяемым по клику
+                    const input = item.querySelector('.file-link-url-input');
+                    input.addEventListener('click', function() {
+                        this.select();
+                    });
+                });
+            }
+            
+            // Функция для удаления файловой ссылки
+            function deleteFileLink(linkId) {
+                if (confirm('Вы уверены, что хотите удалить эту ссылку? Файл останется в вашем облаке.')) {
+                    fetch(`/delete_file_link/${linkId}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            showNotification(data.message, 'success');
+                            loadFileLinks(); // Перезагружаем список ссылок
+                        } else {
+                            showNotification(data.message, 'error');
+                        }
+                    })
+                    .catch(error => {
+                        showNotification('Ошибка при удалении ссылки: ' + error.message, 'error');
+                    });
+                }
+            }
+            
+            // Вспомогательная функция для получения иконки категории
+            function getCategoryIcon(category) {
+                const icons = {
+                    'images': 'fa-image',
+                    'videos': 'fa-video',
+                    'documents': 'fa-file-lines',
+                    'audio': 'fa-music',
+                    'scripts': 'fa-terminal',
+                    'archives': 'fa-file-zipper',
+                    'code': 'fa-code',
+                    'executables': 'fa-file-code',
+                    'databases': 'fa-database',
+                    'torrents': 'fa-magnet',
+                    'other': 'fa-box'
+                };
+                
+                return icons[category] || 'fa-file';
+            }
+            
+            // Функция для получения расширения файла
+            function getFileExtension(filename) {
+                return filename.split('.').pop().toUpperCase();
+            }
+            
+            // Функция для отображения уведомлений
+            function showNotification(message, type) {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = message;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.classList.add('show');
+                }, 10);
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
