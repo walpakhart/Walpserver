@@ -1,7 +1,0 @@
-#! /bin/sh
-set -e
-
-if [ "$1" = rtupdate ]; then
-	py3clean -p walpserver /usr/share/walpserver
-	py3compile -p walpserver  /usr/share/walpserver
-fi
