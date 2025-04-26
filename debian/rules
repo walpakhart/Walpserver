@@ -8,5 +8,18 @@ override_dh_auto_install:
 	cp -r *.py templates static config.py requirements.txt debian/walpserver/usr/lib/walpserver/
 	mkdir -p debian/walpserver/usr/bin
 	echo '#!/bin/sh' > debian/walpserver/usr/bin/walpserver-manager
-	echo 'exec /usr/lib/walpserver/venv/bin/python3 /usr/lib/walpserver/manager.py "$@"' >> debian/walpserver/usr/bin/walpserver-manager
-	chmod +x debian/walpserver/usr/bin/walpserver-manager 
+	echo 'exec /usr/lib/walpserver/venv/bin/python3 /usr/lib/walpserver/manager.py' >> debian/walpserver/usr/bin/walpserver-manager
+	chmod +x debian/walpserver/usr/bin/walpserver-manager
+	# Install desktop file and icon
+	mkdir -p debian/walpserver/usr/share/applications
+	mkdir -p debian/walpserver/usr/share/icons/hicolor/128x128/apps
+	cp static/img/favicon.png debian/walpserver/usr/share/icons/hicolor/128x128/apps/walpserver.png
+	echo "[Desktop Entry]" > debian/walpserver/usr/share/applications/walpserver.desktop
+	echo "Version=1.0" >> debian/walpserver/usr/share/applications/walpserver.desktop
+	echo "Name=Walpserver Manager" >> debian/walpserver/usr/share/applications/walpserver.desktop
+	echo "Comment=Server Management Tool" >> debian/walpserver/usr/share/applications/walpserver.desktop
+	echo "Exec=walpserver-manager" >> debian/walpserver/usr/share/applications/walpserver.desktop
+	echo "Icon=walpserver" >> debian/walpserver/usr/share/applications/walpserver.desktop
+	echo "Terminal=false" >> debian/walpserver/usr/share/applications/walpserver.desktop
+	echo "Type=Application" >> debian/walpserver/usr/share/applications/walpserver.desktop
+	echo "Categories=System;Settings;" >> debian/walpserver/usr/share/applications/walpserver.desktop 

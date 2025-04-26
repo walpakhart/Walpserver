@@ -2,6 +2,11 @@
 set -e
 
 if [ "$1" = "configure" ]; then
+    # Create data directory for database
+    mkdir -p /var/lib/walpserver
+    chown -R root:root /var/lib/walpserver
+    chmod 777 /var/lib/walpserver
+
     # Create virtual environment
     python3 -m venv /usr/lib/walpserver/venv
     

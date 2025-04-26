@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Walpserver Manager
+Comment=Server Management Tool
+Exec=walpserver-manager
+Icon=walpserver
+Terminal=false
+Type=Application
+Categories=System;Settings;

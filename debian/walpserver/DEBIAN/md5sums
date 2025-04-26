@@ -1,8 +1,8 @@
-d61921b4d6d9ad01c8893d31ec4ea765  usr/bin/walpserver-manager
+c41034033cf561265202246e87d0cb6f  usr/bin/walpserver-manager
 812f3f0390210ab976ddf6f5f650ef9e  usr/lib/walpserver/config.py
-fa95dd029044482d2615c714a23f737f  usr/lib/walpserver/manager.py
+7217c2cda3c4152b0552757ec16c561e  usr/lib/walpserver/manager.py
 b1b342f644f23298d245bc755c126a4d  usr/lib/walpserver/requirements.txt
-9648d8002088448c8a1042d3f1c2d1c9  usr/lib/walpserver/server.py
+e8a03d07462ae4ed54faa7b9623b9d20  usr/lib/walpserver/server.py
 fdb997d6ffb4274f98d548f0186234cb  usr/lib/walpserver/static/css/style.css
 4f8e702cc244ec5d4de32740c0ecbd97  usr/lib/walpserver/static/img/en-flag.png
 f8d2d6495670db3d3ebb39c056de7d09  usr/lib/walpserver/static/img/favicon.png
@@ -19,5 +19,7 @@ ba6eaad538d86f8e422f76e4ff2682e3  usr/lib/walpserver/static/js/translations.js
 4c23b19bebdbea31e95a3809bd23245f  usr/lib/walpserver/templates/dashboard.html
 5c01a5c4750cd7ef3ddbf0ed03929ef9  usr/lib/walpserver/templates/login.html
 b46212cd3edf2df4fc21418ae26cd5fd  usr/lib/walpserver/templates/register.html
+de2be596a69e58b9afc217710cd37a09  usr/share/applications/walpserver.desktop
 dfae1845ec65f254abd44bc0dd6b4035  usr/share/doc/walpserver/changelog.Debian.gz
+f8d2d6495670db3d3ebb39c056de7d09  usr/share/icons/hicolor/128x128/apps/walpserver.png
 7cd7218f19a5c67d146673b2272a61d0  usr/share/python3/runtime.d/walpserver.rtupdate
