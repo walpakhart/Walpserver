@@ -1,0 +1,5534 @@
+:root {
+    --primary-color: #0071e3;
+    --primary-hover: #0066cc;
+    --secondary-color: #86bbf2;
+    --light-gray: #f5f5f7;
+    --mid-gray: #d2d2d7;
+    --dark-gray: #86868b;
+    --text-color: #1d1d1f;
+    --text-secondary: #515154;
+    --success-color: #34c759;
+    --warning-color: #ff9f0a;
+    --error-color: #ff3b30;
+    --danger-color: #ff3b30;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --radius: 10px;
+    --radius-sm: 6px;
+    --radius-lg: 20px;
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+    --bg-color: #ffffff;
+    --dark-card: #1c1c1e;
+    --border-color: #d2d2d7;
+    --note-bg-color: #ffffff;
+    --note-text-color: #1d1d1f;
+    --note-priority-1-bg: rgba(255, 159, 10, 0.1);
+    --note-priority-1-text: #1d1d1f;
+    --note-priority-2-bg: rgba(255, 59, 48, 0.1);
+    --note-priority-2-text: #1d1d1f;
+    --priority-1-bg-light: rgba(255, 159, 10, 0.05);
+    --priority-2-bg-light: rgba(255, 59, 48, 0.05);
+    --priority-1-bg-dark: rgba(255, 159, 10, 0.15);
+    --priority-2-bg-dark: rgba(255, 59, 48, 0.15);
+    --card-bg: #ffffff;
+    --card-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --card-shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --lightest-bg: #f5f5f7;
+    --dark-card-bg: #1c1c1e;
+    --dark-border: #3c3c3e;
+    --dark-lighter-bg: #2c2c2e;
+    --dark-text-secondary: #a8a8ae;
+    --btn-shadow: 0 4px 12px rgba(0, 113, 227, 0.25);
+    --btn-shadow-hover: 0 6px 20px rgba(0, 113, 227, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-sans);
+}
+
+body {
+    background-color: var(--light-gray);
+    color: var(--text-color);
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.login-card, .register-card {
+    background: white;
+    width: 380px;
+    max-width: 100%;
+    padding: 30px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.login-card h1, .register-card h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.input-group input, .input-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--mid-gray);
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    outline: none;
+    transition: all 0.2s;
+    background-color: var(--light-gray);
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.input-group input:focus, .input-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+}
+
+.btn-primary, .btn-secondary {
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-secondary {
+    background-color: var(--light-gray);
+    color: var(--text-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-secondary:hover {
+    background-color: var(--mid-gray);
+}
+
+.btn-primary:active, .btn-secondary:active {
+    transform: scale(0.98);
+}
+
+.register-link, .login-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.register-link a, .login-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.error {
+    background-color: rgba(255, 59, 48, 0.1);
+    color: var(--error-color);
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--mid-gray);
+    transition: width 0.3s;
+    z-index: 10;
+}
+
+.logo {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--mid-gray);
+    display: flex;
+    align-items: center;
+    height: 60px;
+    box-sizing: border-box;
+}
+
+.logo h2 {
+    font-weight: 500;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0; /* Убираем стандартные отступы для заголовка */
+}
+
+.sidebar-menu {
+    flex: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+}
+
+.menu-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-left 0.2s;
+    border-radius: 8px;
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 400;
+    position: relative;
+    border-left: 3px solid transparent;
+}
+
+.menu-item:hover {
+    background-color: var(--light-gray);
+}
+
+.menu-item.active {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-weight: 500;
+    border-left: 3px solid var(--primary);
+}
+
+/* Специфические стили для разных меню */
+.cloud-menu .menu-item.active {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: #0078d7;
+    border-left-color: #0078d7;
+}
+
+.movies-menu .menu-item.active {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border-left-color: #dc3545;
+}
+
+/* Специальные меню в облачном разделе */
+.cloud-menu #notes-menu.active {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+    border-left-color: #ffc107;
+}
+
+.cloud-menu #file-links-menu.active {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border-left-color: #28a745;
+}
+
+/* Адаптация для темной темы */
+@media (prefers-color-scheme: dark) {
+    .menu-item.active {
+        background-color: rgba(var(--primary-rgb), 0.2);
+        color: var(--primary);
+    }
+    
+    .cloud-menu .menu-item.active {
+        background-color: rgba(0, 123, 255, 0.15);
+        color: #3a9fff;
+        border-left-color: #3a9fff;
+    }
+    
+    .movies-menu .menu-item.active {
+        background-color: rgba(220, 53, 69, 0.15);
+        color: #ff4b5a;
+        border-left-color: #ff4b5a;
+    }
+    
+    .cloud-menu #notes-menu.active {
+        background-color: rgba(255, 193, 7, 0.15);
+        color: #ffd43b;
+        border-left-color: #ffd43b;
+    }
+    
+    .cloud-menu #file-links-menu.active {
+        background-color: rgba(40, 167, 69, 0.15);
+        color: #34d058;
+        border-left-color: #34d058;
+    }
+}
+
+.menu-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.stats-card {
+    background-color: var(--light-gray);
+    margin: 20px 10px;
+    padding: 15px;
+    border-radius: var(--radius);
+}
+
+.stats-card h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.stats-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    color: var(--dark-gray);
+}
+
+.stats-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.user-info {
+    padding: 15px 20px;
+    border-top: 1px solid var(--mid-gray);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+}
+
+.user-info span {
+    flex: 1;
+}
+
+.logout-link {
+    color: var(--dark-gray);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.logout-link:hover {
+    color: var(--primary-color);
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.toolbar {
+    padding: 15px 20px;
+    background-color: white;
+    border-bottom: 1px solid var(--mid-gray);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    height: 60px;
+    box-sizing: border-box;
+}
+
+.search-box {
+    flex: 1;
+    position: relative;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 15px 10px 35px;
+    border: 1px solid var(--mid-gray);
+    border-radius: var(--radius-lg);
+    outline: none;
+    font-size: 14px;
+    background-color: var(--light-gray);
+    transition: all 0.2s;
+}
+
+.search-box input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--dark-gray);
+}
+
+.sort-options {
+    display: flex;
+    gap: 10px;
+}
+
+.sort-options select {
+    padding: 8px 12px;
+    border: 1px solid var(--mid-gray);
+    border-radius: var(--radius-sm);
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sort-options select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.1);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.files-container {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    transition: opacity 0.3s ease;
+}
+
+.file-card {
+    background-color: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: all 0.2s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.file-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.file-preview {
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--mid-gray);
+}
+
+.file-preview.images {
+    background-color: rgba(0, 113, 227, 0.05);
+    background-size: cover;
+    background-position: center;
+}
+
+.file-preview.videos {
+    background-color: rgba(255, 59, 48, 0.05);
+}
+
+.file-preview.audio {
+    background-color: rgba(255, 159, 10, 0.05);
+}
+
+.file-preview.documents {
+    background-color: rgba(52, 199, 89, 0.05);
+}
+
+.file-preview.links {
+    background-color: rgba(175, 82, 222, 0.05);
+}
+
+.file-preview.other {
+    background-color: rgba(88, 86, 214, 0.05);
+}
+
+.file-preview.scripts {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.file-preview.code {
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+.file-preview.archives {
+    background-color: rgba(241, 196, 15, 0.05);
+}
+
+.file-preview.executables {
+    background-color: rgba(231, 76, 60, 0.05);
+}
+
+.file-preview.databases {
+    background-color: rgba(142, 68, 173, 0.05);
+}
+
+.file-icon {
+    font-size: 40px;
+    color: var(--dark-gray);
+}
+
+.file-info {
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.file-name {
+    font-weight: 500;
+    margin-bottom: 8px;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.file-meta {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    color: var(--dark-gray);
+    font-size: 12px;
+}
+
+.file-description {
+    margin: 8px 0;
+    color: var(--dark-gray);
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.file-actions {
+    padding: 10px 15px;
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid var(--mid-gray);
+}
+
+.file-actions a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 13px;
+    transition: all 0.2s;
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    background-color: var(--light-gray);
+    flex: 1;
+    text-align: center;
+}
+
+.file-actions a:hover {
+    background-color: var(--secondary-color);
+}
+
+.loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px;
+    color: var(--dark-gray);
+    font-size: 16px;
+}
+
+.loading i {
+    margin-right: 10px;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10vh auto;
+    width: 500px;
+    max-width: 90%;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
+    animation: modalIn 0.3s ease;
+}
+
+@keyframes modalIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--mid-gray);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-header h2 {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.close-modal {
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--dark-gray);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-top: 1px solid var(--mid-gray);
+}
+
+/* Кнопка мобильного меню - базовый стиль скрыт по умолчанию */
+.mobile-menu-button {
+    display: none; /* Скрываем по умолчанию */
+}
+
+/* Мобильный хедер - скрыт по умолчанию */
+.mobile-header {
+    display: none;
+    height: 60px; /* Явно задаем высоту, чтобы соответствовала .logo и .toolbar */
+    box-sizing: border-box;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    .app-container {
+        position: relative;
+    }
+    
+    .mobile-header {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px; /* Убедимся, что высота остается той же */
+        background-color: white;
+        padding: 0 15px;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 90;
+        border-bottom: 1px solid var(--mid-gray);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+    }
+    
+    .mobile-logo {
+        font-weight: 500;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+    
+    .mobile-menu-button {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s;
+        position: relative;
+        z-index: 100; /* Возвращаем z-index для корректного отображения */
+    }
+    
+    .close-sidebar {
+        display: block;
+    }
+    
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px; /* Скрыть за пределами экрана */
+        width: 260px;
+        height: 100%;
+        z-index: 200;
+        transition: left 0.3s ease;
+        overflow-y: auto;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .sidebar.open {
+        left: 0;
+    }
+    
+    .logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        height: 60px;
+        box-sizing: border-box;
+    }
+    
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+        padding-top: 70px; /* Увеличиваем отступ для хедера */
+    }
+    
+    .toolbar {
+        flex-wrap: wrap;
+        padding: 10px 15px; /* Корректируем паддинг */
+        height: auto; /* Убираем фиксированную высоту в мобильном режиме */
+        min-height: 60px; /* Устанавливаем минимальную высоту */
+    }
+    
+    .search-box {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .sort-options {
+        width: 100%;
+        display: flex;
+        margin-bottom: 10px;
+    }
+    
+    .sort-options select {
+        flex: 1;
+    }
+    
+    .action-buttons {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .files-container {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        padding: 15px;
+    }
+    
+    .notes-container {
+        padding: 15px;
+    }
+    
+    .notes-list {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Делаем модальные окна полноэкранными на мобильных */
+    .modal-content {
+        width: 95%;
+        max-width: none;
+        margin: 20px auto;
+        padding: 15px;
+    }
+    
+    .preview-modal-content {
+        width: 95%;
+        height: 90vh;
+    }
+    
+    .movie-modal-content {
+        width: 100%;
+        max-width: none;
+        margin: 10px auto;
+        padding: 10px;
+    }
+    
+    .movie-body {
+        padding: 10px;
+    }
+    
+    .modal-header h3 {
+        font-size: 18px;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .modal-footer button {
+        width: 100%;
+    }
+    
+    /* Исправление отображения кнопок на мобильных устройствах */
+    .btn-primary, .btn-secondary, .btn-danger {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
+
+/* Для совсем маленьких экранов */
+@media (max-width: 480px) {
+    .file-card {
+        margin-bottom: 15px;
+    }
+    
+    .file-actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .file-actions a {
+        width: 100%;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .action-buttons button,
+    .action-buttons label {
+        width: 100%;
+    }
+}
+
+/* Темный режим */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --light-gray: #1c1c1e;
+        --mid-gray: #2c2c2e;
+        --dark-gray: #8e8e93;
+        --text-color: #ffffff;
+        --text-secondary: #a8a8ae;
+        --bg-color: #000000;
+        --dark-card: #1c1c1e;
+        --border-color: #3c3c3e;
+        --note-bg-color: #1c1c1e;
+        --note-text-color: #ffffff;
+        --note-priority-1-bg: rgba(255, 159, 10, 0.2);
+        --note-priority-1-text: #ffffff;
+        --note-priority-2-bg: rgba(255, 59, 48, 0.2);
+        --note-priority-2-text: #ffffff;
+    }
+    
+    body {
+        background-color: var(--bg-color);
+    }
+    
+    .sidebar, .toolbar, .login-card, .register-card, .modal-content, .file-card, .mobile-header {
+        background-color: #141416;
+    }
+    
+    .sidebar, .toolbar, .mobile-header {
+        border-color: #2c2c2e;
+    }
+    
+    .mobile-logo {
+        color: white;
+    }
+    
+    .input-group input, .input-group textarea, .sort-options select {
+        background-color: #1c1c1e;
+        color: white;
+    }
+    
+    .btn-secondary {
+        background-color: #2c2c2e;
+        color: white;
+    }
+    
+    .file-actions a {
+        background-color: #2c2c2e;
+    }
+}
+
+/* Стили для страницы авторизации */
+.auth-page {
+    background-color: var(--light-gray);
+    background-image: linear-gradient(135deg, var(--light-gray) 0%, #e1e6f0 100%);
+}
+
+.auth-page .container {
+    min-height: 100vh;
+}
+
+.auth-page .login-card {
+    background: var(--bg-color);
+    width: 420px;
+    max-width: 100%;
+    padding: 35px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.auth-page .login-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-5px);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.logo-container i {
+    font-size: 28px;
+    margin-right: 10px;
+}
+
+.logo-container h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.auth-page .login-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--text-color);
+}
+
+.auth-page .error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: rgba(255, 59, 48, 0.1);
+    color: var(--error-color);
+    padding: 15px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.auth-page .error i {
+    font-size: 18px;
+}
+
+.auth-page .input-group {
+    margin-bottom: 25px;
+}
+
+.auth-page .input-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--dark-gray);
+    font-size: 16px;
+}
+
+.input-with-icon input {
+    padding-left: 45px !important;
+}
+
+.auth-page .input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--mid-gray);
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s;
+    background-color: var(--light-gray);
+}
+
+.auth-page .input-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+}
+
+.auth-page .btn-primary {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    margin-top: 10px;
+}
+
+.auth-page .btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 113, 227, 0.3);
+}
+
+.auth-page .btn-primary:active {
+    transform: translateY(0);
+}
+
+.auth-page .register-link {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.auth-page .register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.auth-page .register-link a:hover {
+    text-decoration: underline;
+    color: var(--primary-hover);
+}
+
+.auth-page .language-options {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.auth-page .language-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: var(--light-gray);
+    gap: 8px;
+}
+
+.auth-page .language-option i {
+    font-size: 16px;
+    color: var(--primary-color);
+}
+
+.auth-page .language-option:hover {
+    background-color: rgba(0, 113, 227, 0.1);
+}
+
+.auth-page .language-option.active {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+.auth-page .language-option.active i {
+    color: white;
+}
+
+/* Темная тема для страниц авторизации */
+@media (prefers-color-scheme: dark) {
+    .auth-page {
+        background-color: var(--bg-color);
+        background-image: linear-gradient(135deg, #1a1a1c 0%, #2c2c2e 100%);
+    }
+    
+    .auth-page .login-card {
+        background-color: #1c1c1e;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border: 1px solid #3c3c3e;
+    }
+    
+    .auth-page .login-card h2,
+    .auth-page .input-group label {
+        color: white;
+    }
+    
+    .auth-page .input-group input {
+        background-color: #2c2c2e;
+        border-color: #3c3c3e;
+        color: white;
+    }
+    
+    .auth-page .input-with-icon i {
+        color: #a0a0a5;
+    }
+    
+    .auth-page .language-option {
+        background-color: #2c2c2e;
+        color: white;
+        border: 1px solid #3c3c3e;
+    }
+    
+    .auth-page .language-option:hover {
+        background-color: #3c3c3e;
+    }
+    
+    .auth-page .register-link {
+        color: #e0e0e5;
+    }
+    
+    .auth-page .register-link a {
+        color: var(--primary-color);
+    }
+}
+
+/* Уведомления */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    background-color: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-hover);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 350px;
+    transform: translateY(100px);
+    opacity: 0;
+    z-index: 1000;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.notification.hiding {
+    transform: translateY(100px);
+    opacity: 0;
+}
+
+.notification.success {
+    border-left: 4px solid var(--success-color);
+}
+
+.notification.error {
+    border-left: 4px solid var(--error-color);
+}
+
+.notification.warning {
+    border-left: 4px solid var(--warning-color);
+}
+
+.notification.info {
+    border-left: 4px solid var(--primary-color);
+}
+
+.notification i {
+    font-size: 18px;
+}
+
+.notification.success i {
+    color: var(--success-color);
+}
+
+.notification.error i {
+    color: var(--error-color);
+}
+
+.notification.warning i {
+    color: var(--warning-color);
+}
+
+.notification.info i {
+    color: var(--primary-color);
+}
+
+.notification span {
+    flex: 1;
+}
+
+.close-notification {
+    background: none;
+    border: none;
+    color: var(--dark-gray);
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.close-notification:hover {
+    color: var(--text-color);
+}
+
+/* Стили для drag-and-drop зоны */
+.files-container.highlight {
+    background-color: rgba(0, 113, 227, 0.1);
+    border: 2px dashed var(--primary-color);
+    padding: 40px;
+}
+
+.drop-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 18px;
+    padding: 100px 0;
+}
+
+.drop-message i {
+    font-size: 50px;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+/* Стили для предпросмотра файлов */
+.preview-modal-content {
+    width: 80%;
+    max-width: 1000px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-body {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-content {
+    flex: 1;
+    overflow: auto;
+}
+
+.preview-content img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.preview-content pre {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 4px;
+    overflow: auto;
+    white-space: pre-wrap;
+    font-family: monospace;
+    margin: 0;
+}
+
+.preview-loading, .preview-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+    color: #666;
+}
+
+.preview-loading i, .preview-error i {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.preview-error {
+    color: #e74c3c;
+}
+
+.preview-error .error-message {
+    margin-top: 10px;
+}
+
+/* Кнопка предпросмотра для файлов */
+.btn-preview {
+    background-color: var(--light-gray);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.btn-preview:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-preview i {
+    margin-right: 5px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .preview-content pre {
+        background-color: #2a2a2a;
+        color: #eee;
+    }
+    
+    .preview-loading, .preview-error {
+        color: #bbb;
+    }
+    
+    .btn-preview {
+        background-color: var(--mid-gray);
+        color: var(--text-color);
+    }
+    
+    .btn-preview:hover {
+        background-color: var(--dark-gray);
+    }
+}
+
+/* Стили для раздела заметок */
+.notes-container {
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.notes-container.hidden {
+    display: none;
+}
+
+.notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.notes-header h2 {
+    color: var(--text-color);
+    margin: 0;
+}
+
+#add-note-btn {
+    padding: 8px 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+}
+
+#add-note-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.notes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.note-card {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--note-bg-color, #ffffff);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-left: 4px solid transparent;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.note-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.note-card[data-priority="1"] {
+    border-left-color: var(--warning-color);
+    background-color: var(--note-priority-1-bg);
+    color: var(--note-priority-1-text);
+}
+
+.note-card[data-priority="2"] {
+    border-left-color: var(--danger-color);
+    background-color: var(--note-priority-2-bg);
+    color: var(--note-priority-2-text);
+}
+
+.note-title {
+    margin: 0 0 10px 0;
+    color: var(--text-color);
+    font-size: 18px;
+    word-break: break-word;
+}
+
+.note-content {
+    color: var(--text-secondary);
+    font-size: 14px;
+    flex-grow: 1;
+    margin-bottom: 10px;
+    white-space: pre-line;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+
+.note-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.note-date {
+    color: var(--text-secondary);
+}
+
+.note-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.note-edit-btn, .note-delete-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: color 0.3s;
+}
+
+.note-edit-btn:hover {
+    color: var(--primary-color);
+}
+
+.note-delete-btn:hover {
+    color: var(--danger-color);
+}
+
+/* Стили для формы заметки */
+#note-modal .modal-content {
+    max-width: 600px;
+}
+
+#note-modal .form-group {
+    margin-bottom: 15px;
+}
+
+#note-modal label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+#note-modal input[type="text"],
+#note-modal textarea,
+#note-modal select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: inherit;
+}
+
+#note-modal textarea {
+    min-height: 200px;
+    resize: vertical;
+}
+
+#note-modal .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Стили для пустого списка заметок */
+.empty-notes-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+    color: var(--text-secondary);
+    text-align: center;
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    grid-column: 1 / -1;
+}
+
+.empty-notes-message i {
+    font-size: 60px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-notes-message p {
+    font-size: 16px;
+    max-width: 300px;
+    margin: 0;
+}
+
+body.dark-mode .empty-notes-message {
+    background-color: var(--dark-card);
+}
+
+/* Обновляем стили модальных окон */
+@media (prefers-color-scheme: dark) {
+    .notification {
+        background-color: #1c1c1e;
+        color: white;
+    }
+}
+
+/* Обновленные медиа-запросы для мобильных устройств */
+
+/* Стили для модуля фильмов */
+.module-header {
+    padding: 0 20px;
+    margin-bottom: 10px;
+}
+
+.module-header h3 {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--dark-gray);
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.cloud-menu {
+    margin-top: 20px;
+}
+
+.movies-container {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.movies-container.hidden {
+    display: none;
+}
+
+.movies-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.movies-header h2 {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.movies-search-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 15px;
+}
+
+.movies-search-wrapper .search-box {
+    flex: 1;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.btn-add {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-add:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-danger {
+    background-color: var(--error-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-danger:hover {
+    background-color: #e63028;
+}
+
+.movies-filter {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    background-color: var(--light-gray);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    background-color: var(--mid-gray);
+}
+
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.movies-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 10px 0;
+    width: 100%;
+}
+
+/* Удаляем стили для скроллбара, так как он больше не нужен */
+.movies-list::-webkit-scrollbar {
+    display: none;
+}
+
+.movies-list::-webkit-scrollbar-track {
+    display: none;
+}
+
+.movies-list::-webkit-scrollbar-thumb {
+    display: none;
+}
+
+/* Обновляем стили для карточек фильмов, убираем привязку к ширине */
+.movie-card {
+    background-color: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.2s;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Для мобильных устройств оптимизируем сетку */
+@media (max-width: 768px) {
+    .movies-list {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 15px;
+        padding: 10px;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 375px) {
+    .movies-list {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+    }
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.movie-poster-wrapper {
+    position: relative;
+    padding-top: 150%;
+    overflow: hidden;
+}
+
+.movie-poster-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.movie-watched-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--success-color);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.movie-info {
+    padding: 15px;
+}
+
+.movie-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.movie-year {
+    color: var(--dark-gray);
+    font-size: 13px;
+}
+
+.movie-modal-content {
+    width: 800px;
+    max-width: 90%;
+}
+
+.movie-body {
+    padding: 20px;
+}
+
+.movie-info-container {
+    display: flex;
+    gap: 20px;
+}
+
+.movie-poster {
+    width: 220px;
+    flex-shrink: 0;
+}
+
+.movie-poster img {
+    width: 100%;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.movie-details {
+    flex: 1;
+}
+
+.movie-detail {
+    margin-bottom: 10px;
+}
+
+.detail-label {
+    font-weight: 500;
+    color: var(--dark-gray);
+    margin-right: 5px;
+}
+
+.movie-description {
+    margin-top: 20px;
+    line-height: 1.6;
+}
+
+#movie-search-results {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#movie-search-results.hidden {
+    display: none;
+}
+
+.search-results-container {
+    background-color: white;
+    border-radius: var(--radius);
+    width: 700px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-hover);
+    padding: 10px 15px;
+}
+
+/* Результаты поиска в виде сетки */
+.search-results-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    padding: 10px;
+}
+
+/* Адаптивность для маленьких экранов */
+@media (max-width: 768px) {
+    .search-results-list {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 10px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .search-results-container {
+        background-color: #1c1c1e;
+        border: 1px solid #3c3c3e;
+    }
+}
+
+.search-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--mid-gray);
+}
+
+.search-results-header h3 {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.close-search-results {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--dark-gray);
+}
+
+.search-result-item {
+    display: flex;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--light-gray);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.search-result-item:hover {
+    background-color: var(--light-gray);
+}
+
+.search-result-poster {
+    width: 60px;
+    height: 90px;
+    margin-right: 15px;
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.search-result-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.search-result-info {
+    flex: 1;
+}
+
+.search-result-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.search-result-meta {
+    color: var(--dark-gray);
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+.search-result-genres {
+    font-size: 13px;
+}
+
+.search-loading, .search-empty {
+    padding: 20px;
+    text-align: center;
+    color: var(--dark-gray);
+}
+
+/* Темный режим */
+@media (prefers-color-scheme: dark) {
+    .movie-card {
+        background-color: #1c1c1e;
+    }
+    
+    .movie-title {
+        color: white;
+    }
+    
+    .search-results-container {
+        background-color: #1c1c1e;
+    }
+    
+    .search-results-header {
+        border-bottom: 1px solid #2c2c2e;
+    }
+    
+    .search-result-item {
+        border-bottom: 1px solid #2c2c2e;
+    }
+    
+    .search-result-item:hover {
+        background-color: #2c2c2e;
+    }
+    
+    .search-result-title {
+        color: white;
+    }
+    
+    .filter-btn {
+        background-color: #2c2c2e;
+        color: white;
+    }
+    
+    .filter-btn:hover {
+        background-color: #3c3c3e;
+    }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .movie-info-container {
+        flex-direction: column;
+    }
+    
+    .movie-poster {
+        width: 180px;
+        margin: 0 auto 20px;
+    }
+    
+    .movies-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .movies-search-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .movies-search-wrapper .search-box {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    #movie-search-button {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+    
+    .movies-list {
+        gap: 15px;
+        /* Улучшаем отображение на мобильных устройствах */
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-left: -10px;
+        margin-right: -10px;
+        width: calc(100% + 20px);
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        flex-wrap: nowrap; /* Предотвращаем перенос элементов */
+        scroll-snap-type: x mandatory; /* Улучшаем поведение прокрутки */
+    }
+    
+    /* Улучшаем прокрутку для карточек фильмов */
+    .movie-card {
+        scroll-snap-align: start; /* Элементы привязываются к началу при прокрутке */
+    }
+    
+    /* Скрываем скроллбар для WebKit */
+    .movies-list::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .movie-card {
+        flex: 0 0 140px;
+        min-width: 140px;
+        margin-bottom: 5px;
+    }
+    
+    .movie-info {
+        padding: 10px;
+    }
+    
+    .movie-title {
+        font-size: 14px;
+    }
+    
+    .movie-year {
+        font-size: 12px;
+    }
+    
+    /* Улучшаем отображение кнопки добавления в результатах поиска */
+    .movie-card .btn-primary.btn-sm {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+    
+    /* Улучшаем модальные окна для мобильных устройств */
+    .modal-content {
+        width: 90%;
+        max-width: none;
+        max-height: 85vh;
+        margin: 30px auto;
+        overflow-y: auto;
+    }
+    
+    .movie-modal-content {
+        width: 95%;
+        max-width: none;
+        margin: 20px auto;
+        padding: 15px;
+        border-radius: var(--radius);
+        overflow-y: auto;
+        max-height: 85vh;
+    }
+    
+    .modal-header {
+        padding: 10px 15px;
+        position: sticky;
+        top: 0;
+        background-color: inherit;
+        z-index: 10;
+        border-top-left-radius: var(--radius);
+        border-top-right-radius: var(--radius);
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .close-modal {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 18px;
+        background: none;
+        border: none;
+        color: var(--dark-gray);
+        cursor: pointer;
+        padding: 5px 10px;
+        z-index: 11;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .movie-body {
+        padding: 10px;
+        overflow-y: auto;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 15px;
+        position: sticky;
+        bottom: 0;
+        background-color: inherit;
+        z-index: 10;
+        border-bottom-left-radius: var(--radius);
+        border-bottom-right-radius: var(--radius);
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .modal-footer button {
+        width: 100%;
+        margin: 0;
+    }
+    
+    /* Исправление отображения кнопок на мобильных устройствах */
+    .btn-primary, .btn-secondary, .btn-danger {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    
+    /* Улучшаем модальное окно для просмотра фильма */
+    .movie-watch-modal-content {
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .movie-watch-body {
+        padding: 0;
+    }
+    
+    .movie-iframe-container {
+        height: 100%;
+    }
+    
+    /* Улучшение кнопки закрытия для модального окна просмотра фильма */
+    #close-watch-movie-modal {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1001;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+}
+
+/* Стили для кнопки поиска фильмов */
+#movie-search-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    padding: 8px 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+#movie-search-button:hover {
+    background-color: var(--hover-color);
+}
+
+/* Улучшения для поиска фильмов */
+.movies-search-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 15px;
+}
+
+.movies-search-wrapper .search-box {
+    flex: 1;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* Обновленные стили для темного режима */
+@media (prefers-color-scheme: dark) {
+    #movie-search-button {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    #movie-search-button:hover {
+        background-color: var(--hover-color);
+    }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .movies-search-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .movies-search-wrapper .search-box {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    #movie-search-button {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}
+
+.movies-menu.hidden,
+.cloud-menu.hidden {
+    display: none;
+}
+
+/* Стиль для заголовка модуля в меню */
+.module-header {
+    padding: 0 20px;
+    margin: 15px 0 10px 0;
+}
+
+/* Темный режим */
+@media (prefers-color-scheme: dark) {
+    .movies-menu .menu-item.active,
+    .movies-menu .menu-item:hover {
+        background-color: #2c2c2e;
+    }
+}
+
+/* Стили для контейнера поиска фильмов */
+.movie-search-container {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.movie-search-container.hidden {
+    display: none;
+}
+
+.movie-search-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.movie-search-header h2 {
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.centered-search {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+}
+
+.big-search {
+    flex: 1;
+}
+
+.big-search input {
+    padding: 15px 15px 15px 45px;
+    font-size: 16px;
+    border-radius: 30px;
+}
+
+.big-search .search-icon {
+    font-size: 18px;
+    left: 18px;
+}
+
+.movie-search-results-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#movie-search-button {
+    margin-left: 15px;
+    height: 50px;
+    padding: 0 25px;
+    font-size: 16px;
+    border-radius: 30px;
+}
+
+/* Обновленные стили для темного режима */
+@media (prefers-color-scheme: dark) {
+    .big-search input {
+        background-color: #1c1c1e;
+        color: white;
+        border-color: #3c3c3e;
+    }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .centered-search {
+        flex-direction: column;
+    }
+    
+    .big-search {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    
+    #movie-search-button {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+.movies-menu.hidden,
+.cloud-menu.hidden {
+    display: none;
+}
+
+/* Стили для маленькой кнопки в карточке фильма */
+.btn-sm {
+    padding: 6px 10px;
+    font-size: 14px;
+    height: auto;
+}
+
+.movie-info .btn-primary {
+    margin-top: 10px;
+    transition: all 0.2s;
+}
+
+.movie-info .btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+@media (prefers-color-scheme: dark) {
+    .movie-info .btn-primary {
+        color: white;
+    }
+}
+
+/* Переключатель языка */
+.language-selector {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+
+.language-options {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.sidebar .language-options {
+    padding: 0 10px;
+}
+
+.sidebar .language-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    background-color: var(--light-gray);
+    width: 45%;
+}
+
+.sidebar .language-option:hover {
+    background-color: rgba(0, 113, 227, 0.1);
+}
+
+.sidebar .language-option.active {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+.language-option span {
+    font-size: 14px;
+}
+
+/* Стили для страниц входа и регистрации */
+.auth-page {
+    background-color: var(--light-gray);
+    background-image: linear-gradient(135deg, var(--light-gray) 0%, #e1e6f0 100%);
+}
+
+.auth-page .container {
+    min-height: 100vh;
+}
+
+.auth-page .login-card {
+    background: var(--bg-color);
+    width: 420px;
+    max-width: 100%;
+    padding: 35px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.auth-page .login-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-5px);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.logo-container i {
+    font-size: 28px;
+    margin-right: 10px;
+}
+
+.logo-container h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.auth-page .login-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--text-color);
+}
+
+.auth-page .error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: rgba(255, 59, 48, 0.1);
+    color: var(--error-color);
+    padding: 15px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.auth-page .error i {
+    font-size: 18px;
+}
+
+.auth-page .input-group {
+    margin-bottom: 25px;
+}
+
+.auth-page .input-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--dark-gray);
+    font-size: 16px;
+}
+
+.input-with-icon input {
+    padding-left: 45px !important;
+}
+
+.auth-page .input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--mid-gray);
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s;
+    background-color: var(--light-gray);
+}
+
+.auth-page .input-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+}
+
+.auth-page .btn-primary {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    margin-top: 10px;
+}
+
+.auth-page .btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 113, 227, 0.3);
+}
+
+.auth-page .btn-primary:active {
+    transform: translateY(0);
+}
+
+.auth-page .register-link {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.auth-page .register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.auth-page .register-link a:hover {
+    text-decoration: underline;
+    color: var(--primary-hover);
+}
+
+.auth-page .language-options {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.auth-page .language-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: var(--light-gray);
+    gap: 8px;
+}
+
+.auth-page .language-option i {
+    font-size: 16px;
+    color: var(--primary-color);
+}
+
+.auth-page .language-option:hover {
+    background-color: rgba(0, 113, 227, 0.1);
+}
+
+.auth-page .language-option.active {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+.auth-page .language-option.active i {
+    color: white;
+}
+
+/* Темная тема для страниц авторизации */
+@media (prefers-color-scheme: dark) {
+    .auth-page {
+        background-color: var(--bg-color);
+        background-image: linear-gradient(135deg, #1a1a1c 0%, #2c2c2e 100%);
+    }
+    
+    .auth-page .login-card {
+        background-color: #1c1c1e;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        border: 1px solid #3c3c3e;
+    }
+    
+    .auth-page .login-card h2,
+    .auth-page .input-group label {
+        color: white;
+    }
+    
+    .auth-page .input-group input {
+        background-color: #2c2c2e;
+        border-color: #3c3c3e;
+        color: white;
+    }
+    
+    .auth-page .input-with-icon i {
+        color: #a0a0a5;
+    }
+    
+    .auth-page .language-option {
+        background-color: #2c2c2e;
+        color: white;
+        border: 1px solid #3c3c3e;
+    }
+    
+    .auth-page .language-option:hover {
+        background-color: #3c3c3e;
+    }
+    
+    .auth-page .register-link {
+        color: #e0e0e5;
+    }
+    
+    .auth-page .register-link a {
+        color: var(--primary-color);
+    }
+}
+
+/* Стили для темной темы */
+body.dark-mode .note-card {
+    background-color: var(--dark-card);
+}
+
+body.dark-mode .note-card[data-priority="1"] {
+    background-color: rgba(255, 159, 10, 0.15);
+}
+
+body.dark-mode .note-card[data-priority="2"] {
+    background-color: rgba(255, 59, 48, 0.15);
+}
+
+body.dark-mode #note-modal input[type="text"],
+body.dark-mode #note-modal textarea,
+body.dark-mode #note-modal select {
+    background-color: var(--dark-card);
+    border-color: var(--mid-gray);
+}
+
+/* Стили для пустого списка заметок */
+body.dark-mode .empty-notes-message {
+    background-color: var(--dark-card);
+}
+
+/* Стили для элементов по всему сайту */
+.btn-primary, 
+.action-buttons .btn-primary, 
+.auth-page .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover, 
+.action-buttons .btn-primary:hover, 
+.auth-page .btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 113, 227, 0.3);
+}
+
+.btn-primary:active, 
+.action-buttons .btn-primary:active, 
+.auth-page .btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Согласованность полей ввода по всему сайту */
+input, select, textarea {
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+    outline: none;
+}
+
+/* Общие стили для карточек */
+.file-card, .movie-card, .note-card, .login-card {
+    border-radius: var(--radius);
+    transition: all 0.3s ease;
+}
+
+.file-card:hover, .movie-card:hover, .note-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Единые стили для языковых опций во всех разделах */
+.language-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.language-option:hover {
+    background-color: rgba(0, 113, 227, 0.1);
+}
+
+.language-option.active {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+.language-option.active i {
+    color: white;
+}
+
+/* Стили для темного режима для всех компонентов */
+@media (prefers-color-scheme: dark) {
+    input, select, textarea {
+        background-color: #2c2c2e;
+        border-color: #3c3c3e;
+        color: white;
+    }
+    
+    .language-option {
+        background-color: #2c2c2e;
+        color: white;
+        border: 1px solid #3c3c3e;
+    }
+    
+    .language-option:hover {
+        background-color: #3c3c3e;
+    }
+    
+    .language-option.active {
+        background-color: var(--primary-color);
+    }
+    
+    .sidebar, .toolbar, .login-card, .register-card, .modal-content, .file-card, .movie-card, .mobile-header {
+        border: 1px solid #3c3c3e;
+    }
+}
+
+/* Улучшенные стили для модального окна просмотра фильма */
+.movie-watch-modal-content {
+    width: 90%;
+    max-width: 1200px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.movie-watch-body {
+    flex: 1;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.movie-iframe-container {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+    background-color: #000;
+}
+
+#movie-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Улучшенные стили для кнопки закрытия модального окна */
+#close-watch-movie-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1001;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+#close-watch-movie-modal:hover {
+    opacity: 1;
+}
+
+/* Стили для модальных окон на разных устройствах */
+@media (max-width: 768px) {
+    .movie-watch-modal-content {
+        width: 100%;
+        height: 100vh;
+        max-width: none;
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .movie-watch-body {
+        padding: 0;
+        height: 100%;
+    }
+    
+    .movie-iframe-container {
+        height: 100%;
+    }
+    
+    #close-watch-movie-modal {
+        top: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+        opacity: 0.9;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Кнопки управления внизу экрана для удобства на мобильных */
+    .movie-controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        z-index: 1001;
+    }
+    
+    .movie-controls button {
+        flex: 1;
+        margin: 0 5px;
+        padding: 8px;
+        border: none;
+        border-radius: 4px;
+        background-color: var(--primary-color);
+        color: white;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .movie-controls button i {
+        margin-right: 5px;
+    }
+}
+
+/* Скрытие скроллбаров в iframe на WebKit-браузерах */
+#movie-iframe::-webkit-scrollbar {
+    display: none;
+}
+
+/* Индикатор загрузки для iframe */
+.movie-iframe-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 18px;
+    z-index: 5;
+}
+
+.movie-iframe-loading i {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.notes-container,
+.movies-container,
+.movie-search-container {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.hidden {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: -1 !important;
+}
+
+/* Адаптивность для очень маленьких экранов */
+@media (max-width: 375px) {
+    .movie-card {
+        flex: 0 0 120px;
+        min-width: 120px;
+    }
+    
+    .movie-info {
+        padding: 8px;
+    }
+    
+    .movie-title {
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+    
+    .movie-year {
+        font-size: 11px;
+    }
+    
+    .movie-card .btn-primary.btn-sm {
+        padding: 4px 6px;
+        font-size: 11px;
+    }
+    
+    .movies-filter {
+        flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+}
+
+/* Стили для элементов с прокруткой на мобильных устройствах */
+.touch-scroll-enabled {
+    position: relative;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+}
+
+.touch-scroll-enabled.scrollable {
+    cursor: grab;
+}
+
+.touch-scroll-enabled:active {
+    cursor: grabbing;
+}
+
+/* Индикатор прокрутки */
+.scroll-indicator {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    animation: pulse 1.5s infinite;
+    pointer-events: none;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.4;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0.4;
+    }
+}
+
+/* Убираем уведомление о прокрутке, когда пользователь начал прокручивать */
+.touch-scroll-enabled:not([data-scroll='0']) .scroll-indicator {
+    display: none;
+}
+
+/* Мобильные контролы по умолчанию скрыты */
+.movie-controls {
+    display: none;
+}
+
+/* Модальное окно для просмотра фильма должно быть поверх всего */
+#movie-watch-modal {
+    z-index: 100;
+}
+
+/* Кнопка закрытия модального окна всегда должна быть видна */
+#close-watch-movie-modal {
+    z-index: 101;
+}
+
+/* Правка свободного пространства модального окна */
+.movie-watch-modal-content {
+    padding-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    /* Показываем мобильные контролы только на мобильных устройствах */
+    .movie-controls {
+        display: none; /* Изначально скрыто, показывается через JS */
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        z-index: 101;
+    }
+    
+    /* Убираем отступы у iframe контейнера */
+    .movie-iframe-container {
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* Исправляем проблему с заголовком модального окна */
+    .movie-watch-modal-content .modal-header {
+        padding: 10px;
+        height: auto;
+        min-height: 40px;
+    }
+    
+    .movie-watch-modal-content .modal-header h2 {
+        margin: 0;
+        font-size: 16px;
+    }
+}
+
+/* Кнопка закрытия бокового меню */
+.close-sidebar {
+    display: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--dark-gray);
+    align-self: center;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    // ... existing code ...
+}
+
+/* Стили для секции торрентов */
+.movie-torrents-section {
+    margin-top: 25px;
+    border-top: 1px solid var(--border-color);
+    animation: fadeIn 0.5s ease-out;
+    background: var(--card-bg);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: var(--card-shadow);
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.torrents-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.torrents-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-color);
+    position: relative;
+    padding-left: 12px;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+}
+
+.torrents-header h3::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 18px;
+    background: var(--primary-color);
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0, 113, 227, 0.2);
+}
+
+#search-torrents-btn {
+    padding: 8px 14px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--btn-shadow);
+    position: relative;
+    overflow: hidden;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    min-width: max-content;
+}
+
+#search-torrents-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--btn-shadow-hover);
+}
+
+#search-torrents-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--btn-shadow);
+}
+
+#torrents-loading, #torrents-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--dark-gray);
+    padding: 25px 0;
+    font-size: 15px;
+    animation: fadeIn 0.4s ease-out;
+    background-color: var(--lightest-bg);
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+#torrents-loading i, #torrents-error i {
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+#torrents-loading i {
+    animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.torrents-list {
+    max-height: 380px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 15px;
+    background: var(--card-bg);
+    margin-top: 15px;
+    box-shadow: var(--card-shadow);
+    scrollbar-width: thin;
+    scrollbar-color: var(--mid-gray) transparent;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.torrents-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.torrents-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.torrents-list::-webkit-scrollbar-thumb {
+    background-color: var(--mid-gray);
+    border-radius: 6px;
+}
+
+.torrents-category-header {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+    color: var(--text-color);
+    border-bottom: 1px dashed var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.torrents-category-header i {
+    color: var(--primary-color);
+}
+
+.torrent-item {
+    background: var(--card-bg);
+    padding: 14px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.25s ease;
+    position: relative;
+    border-left: 4px solid transparent;
+    animation: slideIn 0.3s ease-out;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.torrent-item.top-result {
+    padding-left: 16px;
+}
+
+.torrent-item.top-result.top-1 {
+    border-left: 4px solid var(--success-color);
+    background: linear-gradient(to right, rgba(52, 199, 89, 0.05) 0%, rgba(52, 199, 89, 0.01) 100%);
+    box-shadow: 0 3px 10px rgba(52, 199, 89, 0.1);
+}
+
+.torrent-item.top-result.top-2 {
+    border-left: 4px solid var(--primary-color);
+    background: linear-gradient(to right, rgba(0, 122, 255, 0.05) 0%, rgba(0, 122, 255, 0.01) 100%);
+    box-shadow: 0 3px 10px rgba(0, 122, 255, 0.08);
+}
+
+.torrent-item.top-result.top-3 {
+    border-left: 4px solid var(--warning-color);
+    background: linear-gradient(to right, rgba(255, 204, 0, 0.05) 0%, rgba(255, 204, 0, 0.01) 100%);
+    box-shadow: 0 3px 10px rgba(255, 204, 0, 0.08);
+}
+
+.torrent-item:hover {
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-3px);
+}
+
+.torrent-item.search-link {
+    opacity: 0.95;
+    background-color: var(--lightest-bg);
+    border-left: 3px solid var(--mid-gray);
+}
+
+.torrent-item.search-link:hover {
+    opacity: 1;
+    box-shadow: var(--card-shadow-hover);
+}
+
+.top-result-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 11px;
+    color: var(--dark-gray);
+    background: var(--card-bg);
+    padding: 3px 8px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    max-width: 40%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    z-index: 2;
+}
+
+.top-result-badge i {
+    color: var(--warning-color);
+}
+
+.torrent-name-line {
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-color);
+    word-break: break-word;
+    width: 100%;
+    padding-right: 65px;
+}
+
+.direct-links {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.torrent-name {
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: var(--text-color);
+    word-break: break-word;
+    width: 100%;
+    padding-right: 65px;
+}
+
+.torrent-name a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.torrent-name a:hover {
+    color: var(--primary-hover);
+    text-decoration: none;
+}
+
+.torrent-get-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 0;
+    position: relative;
+    color: var(--text-color) !important;
+    transition: all 0.2s ease;
+    word-break: break-word;
+    width: 100%;
+}
+
+.torrent-get-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.torrent-get-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.torrent-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--dark-gray);
+    background-color: var(--lightest-bg);
+    padding: 8px 10px;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.torrent-size, 
+.torrent-seeds,
+.torrent-leech,
+.torrent-engine,
+.torrent-quality {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.torrent-engine {
+    background-color: var(--lightest-bg);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.torrent-engine i {
+    color: var(--primary-color);
+}
+
+.torrent-seeds {
+    color: var(--dark-gray);
+    transition: transform 0.2s ease;
+}
+
+.torrent-seeds.high-seeds {
+    color: var(--success-color);
+    font-weight: 600;
+    background-color: rgba(52, 199, 89, 0.08);
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.torrent-seeds.medium-seeds {
+    color: var(--warning-color);
+    font-weight: 500;
+    background-color: rgba(255, 204, 0, 0.08);
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.torrent-leech {
+    color: var(--danger-color);
+}
+
+.torrent-quality {
+    color: var(--primary-color);
+    background-color: rgba(0, 113, 227, 0.08);
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.torrent-size {
+    background-color: var(--lightest-bg);
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.magnet-link, .torrent-link, .source-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 8px;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.magnet-link {
+    background: linear-gradient(135deg, #8e44ad, #9b59b6);
+    color: white;
+    box-shadow: 0 3px 8px rgba(142, 68, 173, 0.25);
+}
+
+.magnet-link:hover {
+    background: linear-gradient(135deg, #7d3c98, #8e44ad);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(142, 68, 173, 0.35);
+}
+
+.torrent-link {
+    background: var(--success-color);
+    color: white;
+    box-shadow: var(--btn-shadow);
+}
+
+.torrent-link:hover {
+    background: var(--success-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--btn-shadow-hover);
+}
+
+.source-link {
+    background: var(--dark-gray);
+    color: white;
+    box-shadow: var(--btn-shadow);
+}
+
+.source-link:hover {
+    background: var(--darker-gray);
+    transform: translateY(-2px);
+    box-shadow: var(--btn-shadow-hover);
+}
+
+.torrents-divider {
+    position: relative;
+    height: 24px;
+    margin: 16px 0;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    width: 100%;
+}
+
+.torrents-divider span {
+    position: relative;
+    top: -12px;
+    background: var(--card-bg);
+    padding: 0 12px;
+    font-size: 13px;
+    color: var(--dark-gray);
+    border-radius: 12px;
+    font-weight: 500;
+    box-shadow: var(--card-shadow);
+    max-width: 70%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.torrents-no-results {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--dark-gray);
+    font-style: italic;
+    background-color: var(--lightest-bg);
+    border-radius: 10px;
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+.torrent-links {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: var(--lightest-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    animation: fadeIn 0.3s ease-out;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.torrent-links-loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--dark-gray);
+}
+
+.torrent-links-loading i {
+    animation: spin 1.2s linear infinite;
+}
+
+.torrent-links-header {
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 8px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.torrent-file-links, .magnet-links-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+/* Адаптивные стили для разных размеров экрана */
+@media (max-width: 991px) {
+    .torrent-item {
+        padding: 12px;
+    }
+    
+    .top-result-badge {
+        max-width: 35%;
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+    
+    .torrent-info {
+        gap: 8px;
+    }
+    
+    .torrent-quality, .torrent-size, .torrent-seeds, .torrent-leech {
+        font-size: 12px;
+        padding: 2px 6px;
+    }
+}
+
+@media (max-width: 768px) {
+    .movie-torrents-section {
+        padding: 12px;
+    }
+    
+    .torrents-list {
+        max-height: 420px;
+        padding: 12px;
+    }
+    
+    .direct-links {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .top-result-badge {
+        position: static;
+        margin-bottom: 8px;
+        display: inline-flex;
+        font-size: 10px;
+        max-width: 100%;
+        width: fit-content;
+        margin-top: 5px;
+    }
+    
+    .torrent-name, .torrent-name-line {
+        padding-right: 0;
+    }
+    
+    .torrent-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 10px;
+    }
+    
+    .torrent-engine, .torrent-size, .torrent-seeds, .torrent-quality, .torrent-leech {
+        display: inline-flex;
+        width: auto;
+        max-width: 100%;
+    }
+    
+    #search-torrents-btn {
+        padding: 7px 12px;
+        font-size: 13px;
+    }
+    
+    .torrents-header h3 {
+        font-size: 16px;
+    }
+    
+    .torrent-item {
+        padding: 12px;
+    }
+    
+    .magnet-link, .torrent-link, .source-link {
+        padding: 8px 12px;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .torrents-category-header {
+        font-size: 14px;
+    }
+    
+    .torrent-name {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .torrents-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    #search-torrents-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .torrent-item {
+        padding: 10px;
+    }
+    
+    .torrent-info {
+        padding: 8px;
+    }
+    
+    .torrent-engine, .torrent-size, .torrent-seeds, .torrent-quality, .torrent-leech {
+        font-size: 11px;
+        padding: 2px 5px;
+    }
+    
+    .torrent-links-header {
+        font-size: 12px;
+    }
+    
+    .torrent-links {
+        padding: 8px 10px;
+    }
+    
+    .magnet-link, .torrent-link, .source-link {
+        font-size: 11px;
+        padding: 7px 10px;
+    }
+    
+    .torrents-divider span {
+        font-size: 12px;
+        max-width: 90%;
+    }
+}
+
+/* Улучшенные стили для тёмной темы */
+@media (prefers-color-scheme: dark) {
+    .movie-torrents-section {
+        background: var(--dark-card-bg);
+        border-top-color: var(--dark-border);
+    }
+    
+    .torrents-header {
+        border-bottom-color: var(--dark-border);
+    }
+    
+    .torrents-list {
+        background: var(--dark-card-bg);
+        border-color: var(--dark-border);
+    }
+    
+    .torrents-category-header {
+        border-bottom-color: var(--dark-border);
+    }
+    
+    .torrent-item {
+        background: var(--dark-card-bg);
+        box-shadow: var(--dark-card-shadow);
+    }
+    
+    .torrent-item:hover {
+        background: var(--dark-card-bg-hover);
+        box-shadow: var(--dark-card-shadow-hover);
+    }
+    
+    .torrent-item.top-result.top-1 {
+        background: linear-gradient(to right, rgba(52, 199, 89, 0.1) 0%, rgba(52, 199, 89, 0.02) 100%);
+    }
+    
+    .torrent-item.top-result.top-2 {
+        background: linear-gradient(to right, rgba(0, 122, 255, 0.1) 0%, rgba(0, 122, 255, 0.02) 100%);
+    }
+    
+    .torrent-item.top-result.top-3 {
+        background: linear-gradient(to right, rgba(255, 204, 0, 0.1) 0%, rgba(255, 204, 0, 0.02) 100%);
+    }
+    
+    .torrent-item.search-link {
+        background-color: var(--dark-lighter-bg);
+    }
+    
+    .top-result-badge {
+        background: var(--dark-card-bg);
+        color: var(--dark-text-secondary);
+    }
+    
+    .torrents-divider span {
+        background: var(--dark-card-bg);
+        color: var(--dark-text-secondary);
+    }
+    
+    .torrents-divider {
+        border-top-color: var(--dark-border);
+    }
+    
+    .torrent-info {
+        background-color: var(--dark-lighter-bg);
+    }
+    
+    .torrent-engine, .torrent-size {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .torrent-seeds.high-seeds {
+        background-color: rgba(52, 199, 89, 0.15);
+    }
+    
+    .torrent-seeds.medium-seeds {
+        background-color: rgba(255, 204, 0, 0.15);
+    }
+    
+    .torrent-quality {
+        background-color: rgba(0, 113, 227, 0.15);
+    }
+    
+    .torrent-get-link {
+        color: var(--dark-text) !important;
+    }
+    
+    .torrent-links {
+        background: var(--dark-lighter-bg);
+        border-color: var(--dark-border);
+    }
+    
+    .torrents-no-results {
+        background-color: var(--dark-lighter-bg);
+        color: var(--dark-text-secondary);
+    }
+    
+    #torrents-loading, #torrents-error {
+        background-color: var(--dark-lighter-bg);
+    }
+}
+
+// ... existing code ...
+
+/* Стили для шаринга файлов */
+.input-with-copy {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+.input-with-copy input {
+    flex: 1;
+    padding-right: 50px;
+    font-size: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    height: 46px;
+    padding-left: 15px;
+    transition: all 0.3s ease;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.input-with-copy input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15), 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-copy {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    background: var(--primary-color);
+    border: none;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    width: 70px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-copy span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn-copy:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-copy:active {
+    transform: scale(0.95);
+}
+
+.share-info {
+    padding: 15px;
+    margin: 20px 0;
+    background-color: rgba(0, 122, 255, 0.07);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 10px;
+    font-size: 15px;
+    color: var(--text-color);
+    line-height: 1.5;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.share-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.share-actions button {
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    min-width: 120px;
+}
+
+.share-actions button i {
+    font-size: 16px;
+}
+
+/* Анимация bounce для кнопки копирования */
+@keyframes scale-bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.share-actions .btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.share-actions .btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 122, 255, 0.2);
+}
+
+.share-actions .btn-danger {
+    background-color: #ff3b30;
+    color: white;
+    border: none;
+}
+
+.share-actions .btn-danger:hover {
+    background-color: #ff2d20;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(255, 59, 48, 0.2);
+}
+
+#share-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 35px 20px;
+    color: var(--dark-gray);
+    font-size: 16px;
+}
+
+#share-loading i {
+    font-size: 24px;
+    color: var(--primary-color);
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Адаптивные стили для шаринга */
+@media (max-width: 768px) {
+    .share-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .share-actions button {
+        width: 100%;
+        margin: 0;
+    }
+    
+    .input-with-copy input {
+        font-size: 14px;
+        height: 42px;
+    }
+    
+    #share-loading {
+        padding: 25px 15px;
+    }
+}
+
+/* Тёмная тема для шаринга */
+@media (prefers-color-scheme: dark) {
+    .input-with-copy input {
+        background-color: #2a2a2a;
+        border-color: #444;
+        color: #eee;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .input-with-copy input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.25), 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .share-info {
+        background-color: rgba(0, 122, 255, 0.15);
+        color: #eee;
+        border-color: var(--primary-color);
+    }
+    
+    #share-file-modal .modal-content {
+        background-color: #252525;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+    
+    #share-file-modal .modal-header {
+        border-bottom: 1px solid #444;
+    }
+    
+    #share-file-modal .modal-footer {
+        border-top: 1px solid #444;
+    }
+    
+    .share-actions .btn-secondary {
+        background-color: #444;
+        color: #eee;
+    }
+    
+    .share-actions .btn-secondary:hover {
+        background-color: #555;
+    }
+}
+
+/* Добавим стили для селектора времени действия ссылки */
+.expiry-time-selector {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: rgba(0, 122, 255, 0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(0, 122, 255, 0.1);
+}
+
+.expiry-time-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.expiry-input {
+    width: 65px;
+    padding: 8px 5px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.expiry-input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.15), 0 2px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.expiry-time-item label {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+@media (prefers-color-scheme: dark) {
+    .expiry-input {
+        background-color: #303030;
+        color: #eee;
+        border-color: #555;
+    }
+    
+    .expiry-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .expiry-time-selector {
+        background-color: rgba(0, 122, 255, 0.07);
+        border-color: rgba(0, 122, 255, 0.2);
+    }
+    
+    .expiry-input {
+        background-color: #2a2a2a;
+        color: #eee;
+        border-color: #444;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    .expiry-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.25), 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .expiry-time-item label {
+        color: #ddd;
+    }
+}
+
+/* Стили для анимации кнопки копирования */
+.btn-copy.copied {
+    background-color: #4cd964 !important;
+    color: white;
+    animation: scale-bounce 0.5s;
+}
+
+.input-with-copy input.highlight-success {
+    border-color: #4cd964 !important;
+    box-shadow: 0 0 0 2px rgba(76, 217, 100, 0.2) !important;
+    transition: all 0.3s ease;
+}
+
+@keyframes scale-bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.btn-copy.copied {
+    background-color: #4cd964 !important;
+    color: white;
+    animation: scale-bounce 0.5s;
+    width: 85px; /* Делаем немного шире для слова "Скопировано" */
+}
+
+.share-actions .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+.share-actions .btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+.share-actions .btn-success.copied {
+    background-color: #218838;
+    border-color: #1e7e34;
+    animation: scale-bounce 0.5s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+    .share-actions .btn-success {
+        background-color: #218838;
+        border-color: #1e7e34;
+        color: white;
+    }
+    
+    .share-actions .btn-success:hover {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    
+    .share-actions .btn-success.copied {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+}
+
+/* Стили для TV-режима */
+.tv-mode-selector {
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tv-mode-toggle {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.toggle-switch {
+    position: relative;
+    width: 50px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.toggle-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-label:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.toggle-input:checked + .toggle-label {
+    background-color: var(--primary-color);
+}
+
+.toggle-input:checked + .toggle-label:before {
+    transform: translateX(26px);
+}
+
+.toggle-label-text {
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.tv-mode-instructions {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    font-size: 12px;
+    display: none;
+}
+
+.tv-mode-instructions p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.tv-mode-instructions i {
+    color: var(--primary-color);
+    font-size: 14px;
+}
+
+/* Стили для элементов в фокусе */
+.tv-focus {
+    outline: 3px solid var(--primary-color) !important;
+    outline-offset: 2px;
+    position: relative;
+    z-index: 100;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+/* Анимация при активации элемента */
+.tv-active {
+    transform: scale(0.95);
+    opacity: 0.8;
+    transition: all 0.1s ease;
+}
+
+/* Стили для режима TV в темной теме */
+@media (prefers-color-scheme: dark) {
+    .tv-mode-instructions {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .toggle-label {
+        background-color: #555;
+    }
+    
+    .toggle-label:before {
+        background-color: #ddd;
+    }
+    
+    .tv-focus {
+        outline-color: var(--primary-color) !important;
+        box-shadow: 0 0 20px rgba(var(--primary-color-rgb), 0.5);
+    }
+}
+
+/* TV-режим в верхней панели */
+.tv-mode-wrapper {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.toolbar .tv-mode-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+.toolbar .toggle-label-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.toolbar .toggle-switch {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    margin: 0;
+}
+
+.toolbar .toggle-label {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .3s;
+    border-radius: 20px;
+}
+
+.toolbar .toggle-label:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+.toolbar .toggle-input:checked + .toggle-label {
+    background-color: var(--primary-color);
+}
+
+.toolbar .toggle-input:checked + .toggle-label:before {
+    transform: translateX(16px);
+}
+
+/* Инструкции TV-режима переносим в нижнюю часть страницы */
+.tv-mode-instructions {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    z-index: 9999;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.tv-mode-active .tv-mode-instructions {
+    display: block;
+    opacity: 1;
+}
+
+.tv-mode-instructions p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-size: 14px;
+}
+
+.tv-mode-instructions i {
+    color: var(--primary-color);
+}
+
+/* Адаптация под мобильные устройства */
+@media (max-width: 768px) {
+    .tv-mode-wrapper {
+        margin-right: 8px;
+    }
+    
+    .toolbar .tv-mode-toggle {
+        padding: 3px 8px;
+    }
+    
+    .toolbar .toggle-label-text {
+        font-size: 12px;
+    }
+    
+    .toolbar .toggle-switch {
+        width: 30px;
+        height: 16px;
+    }
+    
+    .toolbar .toggle-label:before {
+        height: 10px;
+        width: 10px;
+    }
+    
+    .toolbar .toggle-input:checked + .toggle-label:before {
+        transform: translateX(14px);
+    }
+}
+
+/* Темная тема */
+@media (prefers-color-scheme: dark) {
+    .toolbar .tv-mode-toggle {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .toolbar .toggle-label {
+        background-color: #555;
+    }
+    
+    .toolbar .toggle-label:before {
+        background-color: #ddd;
+    }
+    
+    .tv-mode-instructions {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+}
+
+/* Дополнительная визуальная обратная связь для TV-режима */
+.tv-focus {
+    outline: 3px solid var(--primary-color) !important;
+    outline-offset: 2px;
+    position: relative;
+    z-index: 100;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+/* Анимация при активации элемента */
+.tv-active {
+    transform: scale(0.95);
+    opacity: 0.8;
+    transition: all 0.1s ease;
+}
+
+/* Анимация при изменении направления с помощью мыши */
+.tv-direction-change {
+    animation: tv-direction-pulse 0.2s ease;
+}
+
+@keyframes tv-direction-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(var(--primary-color-rgb), 0.5); }
+    100% { transform: scale(1); }
+}
+
+/* Добавляем эффект ускорения для плавных движений */
+.tv-mode-active {
+    --tv-transition-speed: 0.15s;
+}
+
+.tv-mode-active * {
+    scroll-behavior: smooth;
+}
+
+.tv-mode-active .tv-focus {
+    transition: outline-color var(--tv-transition-speed) ease,
+                box-shadow var(--tv-transition-speed) ease,
+                transform var(--tv-transition-speed) ease;
+}
+
+/* Стили курсора в TV-режиме */
+.tv-mode-active:not(:hover) {
+    cursor: none !important;
+}
+
+/* Специальный курсор для TV-режима (только при движении) */
+.tv-mode-active:hover {
+    cursor: none !important;
+}
+
+/* Добавляем подсветку для текущего элемента фокуса */
+.tv-focus::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(45deg, 
+                rgba(var(--primary-color-rgb), 0.8),
+                rgba(var(--primary-color-rgb), 0.1),
+                rgba(var(--primary-color-rgb), 0.8));
+    background-size: 300% 300%;
+    animation: tv-focus-gradient 2s ease infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes tv-focus-gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Стили для TV-режима с поддержкой навигации мышью */
+.tv-mode-active {
+    scroll-behavior: smooth;
+}
+
+.tv-focus {
+    outline: 3px solid var(--primary-color) !important;
+    outline-offset: 2px;
+    position: relative;
+    z-index: 100;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+    animation: tv-focus-gradient 2s ease infinite;
+}
+
+@keyframes tv-focus-gradient {
+    0% {
+        box-shadow: 0 0 10px rgba(var(--primary-color-rgb), 0.4);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(var(--primary-color-rgb), 0.7);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(var(--primary-color-rgb), 0.4);
+    }
+}
+
+.tv-active {
+    transform: scale(0.95);
+    opacity: 0.8;
+    transition: all 0.1s ease;
+}
+
+.tv-direction-change {
+    animation: tv-direction-pulse 0.3s ease-out;
+}
+
+@keyframes tv-direction-pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Скрыть курсор в TV-режиме, кроме движения */
+.tv-mode-active {
+    cursor: none;
+}
+
+.tv-mode-active *:hover {
+    cursor: none;
+}
+
+/* Специальный курсор при движении мыши */
+.tv-mode-active.mouse-moving {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%234285f4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>') 12 12, auto;
+}
+
+/* Адаптации для темной темы */
+@media (prefers-color-scheme: dark) {
+    .tv-focus {
+        outline-color: var(--primary-color) !important;
+        box-shadow: 0 0 20px rgba(var(--primary-color-rgb), 0.5);
+    }
+    
+    @keyframes tv-focus-gradient {
+        0% {
+            box-shadow: 0 0 10px rgba(var(--primary-color-rgb), 0.5);
+        }
+        50% {
+            box-shadow: 0 0 25px rgba(var(--primary-color-rgb), 0.8);
+        }
+        100% {
+            box-shadow: 0 0 10px rgba(var(--primary-color-rgb), 0.5);
+        }
+    }
+}
+
+/* Стили для маленьких элементов в фокусе в TV-режиме */
+.tv-focus-small {
+    transform: scale(1.35);
+    z-index: 10000;
+    position: relative;
+    transition: transform 0.2s ease, outline-offset 0.2s ease;
+    outline-offset: 5px !important;
+}
+
+/* Особое выделение для крестиков закрытия */
+.close-modal.tv-focus,
+.close.tv-focus,
+.close-sidebar.tv-focus,
+.close-notification.tv-focus,
+.close-search-results.tv-focus,
+#close-preview.tv-focus,
+#close-movie-modal.tv-focus,
+#close-watch-movie-modal.tv-focus {
+    background-color: rgba(var(--primary-color-rgb), 0.2);
+    border-radius: 50%;
+    box-shadow: 0 0 15px 5px rgba(var(--primary-color-rgb), 0.5);
+}
+
+/* Анимация пульсации для крестиков и других малых элементов */
+.tv-focus-small::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    background: rgba(var(--primary-color-rgb), 0.2);
+    animation: tv-small-element-pulse 1.5s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes tv-small-element-pulse {
+    0% { transform: scale(0.95); opacity: 0.4; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(0.95); opacity: 0.4; }
+}
+
+/* Улучшенная видимость маленьких кнопок */
+.btn-sm.tv-focus,
+.toggle-label.tv-focus {
+    transform: scale(1.15);
+    box-shadow: 0 0 12px rgba(var(--primary-color-rgb), 0.9);
+}
+
+/* Стили для темной темы */
+@media (prefers-color-scheme: dark) {
+    .tv-focus-small::before {
+        background: rgba(var(--primary-color-rgb), 0.3);
+    }
+    
+    .close-modal.tv-focus,
+    .close.tv-focus,
+    .close-sidebar.tv-focus,
+    .close-notification.tv-focus,
+    .close-search-results.tv-focus,
+    #close-preview.tv-focus,
+    #close-movie-modal.tv-focus,
+    #close-watch-movie-modal.tv-focus {
+        background-color: rgba(var(--primary-color-rgb), 0.3);
+        box-shadow: 0 0 15px 5px rgba(var(--primary-color-rgb), 0.7);
+    }
+}
+
+/* Стили для категорий торрентов */
+.torrent-category-info {
+    margin: 5px 0;
+}
+
+.category-badge {
+    display: inline-block;
+    padding: 3px 6px;
+    font-size: 0.75rem;
+    border-radius: 4px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    margin-right: 5px;
+}
+
+/* Разные цвета для разных категорий торрентов */
+.category-badge[data-category="movies"] {
+    background-color: #e74c3c;
+}
+
+.category-badge[data-category="tv"] {
+    background-color: #3498db;
+}
+
+.category-badge[data-category="music"] {
+    background-color: #9b59b6;
+}
+
+.category-badge[data-category="games"] {
+    background-color: #f39c12;
+}
+
+.category-badge[data-category="software"] {
+    background-color: #1abc9c;
+}
+
+.category-badge[data-category="books"] {
+    background-color: #27ae60;
+}
+
+.category-badge[data-category="other"] {
+    background-color: #7f8c8d;
+}
+
+/* Стили для прогресс-бара при скачивании торрентов */
+.progress-container {
+    margin: 20px 0;
+    width: 100%;
+}
+
+.progress-bar {
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: var(--primary-color);
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 10px;
+    position: relative;
+}
+
+.progress-text {
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--dark-gray);
+    margin-top: 5px;
+}
+
+.download-details {
+    margin: 15px 0;
+    background-color: #f7f7f7;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.download-speed, .download-eta, .download-size {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.download-status {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #eef2f7;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+    color: var(--dark-gray);
+}
+
+.download-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Тёмная тема для прогресс-бара */
+@media (prefers-color-scheme: dark) {
+    .progress-bar {
+        background-color: #2c2c2e;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+    
+    .progress-text {
+        color: #ccc;
+    }
+    
+    .download-details {
+        background-color: #1c1c1e;
+        color: #ccc;
+    }
+    
+    .download-status {
+        background-color: #2c2c2e;
+        color: #ccc;
+    }
+}
+
+/* ... existing code ... */
+
+/* Стили для кнопки воспроизведения в карточке файла */
+.play-media-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.play-media-btn:hover {
+    background-color: var(--primary-color-hover);
+    transform: scale(1.05);
+}
+
+/* Стили для медиаплеера */
+.media-player {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.audio-player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.audio-player-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+    background-color: var(--bg-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.audio-player-image i {
+    font-size: 80px;
+    color: var(--primary-color);
+}
+
+.audio-player {
+    width: 100%;
+    margin-top: 16px;
+}
+
+/* Медиаплеер для мобильных устройств */
+@media (max-width: 768px) {
+    .media-player {
+        max-height: 50vh;
+    }
+    
+    .audio-player-image {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .audio-player-image i {
+        font-size: 60px;
+    }
+}
+
+/* ... existing code ... */
+
+/* Стили для раздела файловых ссылок */
+.file-links-container {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+    background-color: var(--primary-bg);
+}
+
+.file-links-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 15px;
+}
+
+.file-links-header h2 {
+    font-size: 1.8rem;
+    color: var(--accent-color);
+    margin: 0;
+}
+
+.file-links-actions {
+    display: flex;
+    gap: 10px;
+}
+
+#refresh-file-links-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#refresh-file-links-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.file-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.file-link-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--secondary-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    margin-bottom: 5px; /* Добавлено расстояние между элементами */
+}
+
+.file-link-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    border-color: var(--accent-color);
+    z-index: 1; /* Чтобы элемент был над другими при наведении */
+}
+
+.file-link-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--accent-color), var(--accent-hover));
+    transition: width 0.3s ease;
+}
+
+.file-link-item:hover::before {
+    width: 8px;
+}
+
+.file-link-icon {
+    font-size: 24px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.file-link-item:hover .file-link-icon {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.file-link-info {
+    flex: 1;
+    min-width: 0;
+    padding-right: 15px;
+}
+
+.file-link-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-color);
+    position: relative;
+    display: inline-block;
+    padding-right: 30px; /* Пространство для обозначения типа файла */
+}
+
+.file-link-name::after {
+    content: attr(data-extension);
+    position: absolute;
+    right: 0;
+    top: 2px;
+    font-size: 0.7em;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    opacity: 0.8;
+}
+
+.file-link-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+}
+
+.file-link-details span {
+    padding: 4px 10px;
+    border-radius: 20px;
+    background-color: rgba(var(--accent-rgb), 0.15);
+    color: var(--text-color);
+    border: 1px solid rgba(var(--accent-rgb), 0.2);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.file-link-date, .file-link-category, .file-link-expiry {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.file-link-date::before {
+    content: '\f017';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+}
+
+.file-link-category::before {
+    content: '\f07b';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+}
+
+.file-link-expiry::before {
+    content: '\f253';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+}
+
+.file-link-status {
+    font-weight: 600;
+}
+
+.active-link .file-link-status {
+    color: var(--success-color);
+    background-color: rgba(var(--success-rgb), 0.15);
+    border-color: rgba(var(--success-rgb), 0.3);
+}
+
+.inactive-link .file-link-status {
+    color: var(--danger-color);
+    background-color: rgba(var(--danger-rgb), 0.15);
+    border-color: rgba(var(--danger-rgb), 0.3);
+}
+
+.active-link::before {
+    background: linear-gradient(to bottom, var(--success-color), var(--accent-color));
+}
+
+.inactive-link::before {
+    background: linear-gradient(to bottom, var(--danger-color), var(--accent-color));
+}
+
+.active-link {
+    border-left: 3px solid var(--success-color);
+}
+
+.inactive-link {
+    border-left: 3px solid var(--danger-color);
+    opacity: 0.9;
+}
+
+.file-link-url {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    background-color: rgba(var(--accent-rgb), 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 6px; /* Увеличиваем отступ для лучшей читаемости */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+.file-link-item:hover .file-link-url {
+    border-color: var(--accent-color);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    background-color: rgba(var(--accent-rgb), 0.08);
+}
+
+.file-link-url-input {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95em;
+    background-color: transparent;
+    color: var(--accent-color);
+    min-width: 0;
+    font-weight: 500;
+    cursor: pointer; /* Показываем, что элемент можно выделить */
+}
+
+/* Стиль для выделения при клике */
+.file-link-url-input:focus {
+    outline: none;
+    background-color: rgba(var(--accent-rgb), 0.1);
+}
+
+/* Дополнительные улучшения для темной темы */
+@media (prefers-color-scheme: dark) {
+    .file-link-item {
+        border-color: rgba(255, 255, 255, 0.1);
+        background-color: rgba(30, 30, 30, 0.7);
+    }
+    
+    .file-link-item:hover {
+        border-color: var(--accent-color);
+        background-color: rgba(40, 40, 40, 0.8);
+    }
+    
+    .file-link-name::after {
+        background-color: rgba(var(--accent-rgb), 0.8);
+    }
+    
+    .file-link-url-input:focus {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Убираем прозрачность ссылок в темном режиме для лучшей читаемости */
+    .file-link-url-input {
+        color: rgba(var(--accent-rgb), 0.9);
+    }
+}
+
+.copy-btn {
+    margin-left: 5px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.copy-btn:hover {
+    background-color: var(--accent-hover);
+    transform: scale(1.05);
+}
+
+.copy-btn:active {
+    transform: scale(0.95);
+}
+
+.copy-btn.copied {
+    background-color: var(--success-color);
+    animation: pulse 1s;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.file-link-actions {
+    display: flex;
+    gap: 12px;
+    margin-left: 20px;
+}
+
+.btn-view, .btn-delete {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-view {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-view:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-delete {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: var(--danger-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.btn-view:active, .btn-delete:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.loading-file-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    font-size: 1.2em;
+    color: var(--text-light);
+}
+
+.loading-file-links i {
+    margin-right: 15px;
+    animation: rotate 1.5s linear infinite;
+    color: var(--accent-color);
+    font-size: 1.5em;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.empty-message, .error-message {
+    padding: 30px;
+    text-align: center;
+    font-size: 1.1em;
+    border-radius: 10px;
+    background-color: var(--secondary-bg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin: 20px 0;
+}
+
+.empty-message {
+    color: var(--text-light);
+}
+
+.error-message {
+    color: var(--danger-color);
+    background-color: rgba(var(--danger-rgb), 0.05);
+}
+
+@media (max-width: 768px) {
+    .file-link-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+    
+    .file-link-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .file-link-info {
+        width: 100%;
+        padding-right: 0;
+    }
+    
+    .file-link-actions {
+        margin-left: 0;
+        margin-top: 15px;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .file-link-details {
+        gap: 8px;
+    }
+    
+    .file-link-details span {
+        padding: 3px 8px;
+        font-size: 0.85em;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .file-link-icon {
+        background: linear-gradient(135deg, var(--accent-color), rgba(var(--accent-rgb), 0.6));
+    }
+    
+    .file-link-details span {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .file-link-url {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+    
+    .empty-message, .error-message {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+    
+    .file-link-item::before {
+        opacity: 0.8;
+    }
+}
+
+/* Дополнительные стили для файловых ссылок */
+.highlight-success {
+    background-color: rgba(var(--success-rgb), 0.1) !important;
+    animation: highlight-pulse 2s;
+    border: 1px solid var(--success-color) !important;
+}
+
+@keyframes highlight-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(var(--success-rgb), 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(var(--success-rgb), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--success-rgb), 0); }
+}
+
+.empty-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border-radius: 12px;
+    background-color: var(--secondary-bg);
+    color: var(--text-light);
+    text-align: center;
+}
+
+.empty-message i {
+    margin-bottom: 15px;
+    opacity: 0.6;
+    font-size: 3em;
+    color: var(--accent-color);
+}
+
+.empty-message p {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+/* Появление элементов */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.file-link-item {
+    animation: fadeInUp 0.5s;
+}
+
+/* Эффект при наведении на кнопки */
+.btn-view, .btn-delete, .copy-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-view::after, .btn-delete::after, .copy-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.4);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+}
+
+.btn-view:focus::after, .btn-delete:focus::after, .copy-btn:focus::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0) translate(-50%, -50%);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(30, 30) translate(-50%, -50%); 
+        opacity: 0;
+    }
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.notification.success {
+    background-color: var(--success-color);
+}
+
+.notification.error {
+    background-color: var(--danger-color);
+}
+
+/* Анимация для иконок в файловой ссылке */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-15px);}
+    60% {transform: translateY(-10px);}
+}
+
+.fa-bounce {
+    animation: bounce 1s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .file-link-item,
+    .file-link-item:hover,
+    .file-link-icon,
+    .fa-bounce,
+    .copy-btn.copied,
+    .notification {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+}
