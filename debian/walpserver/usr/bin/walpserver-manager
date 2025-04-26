@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /usr/lib/walpserver/venv/bin/python3 /usr/lib/walpserver/manager.py "override_dh_auto_install"
+exec /usr/lib/walpserver/venv/bin/python3 /usr/lib/walpserver/manager.py

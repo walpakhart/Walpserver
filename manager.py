@@ -9,6 +9,7 @@ from datetime import datetime
 import webbrowser
 import sys
 import logging
+from flet import Colors, Icons
 
 # Настройка логирования
 logging.basicConfig(
@@ -26,31 +27,32 @@ class ServerManager:
         self.logs = []
         self.is_running = False
         self.log_file = "server.log"
+        self.server_dir = "/usr/lib/walpserver"
         
     def start_server(self):
         if not self.is_running:
             try:
                 # Убедимся, что сервер запускается в правильной директории
-                current_dir = os.getcwd()
-                python_path = sys.executable  # Получаем путь к текущему Python
+                python_path = "/usr/lib/walpserver/venv/bin/python3"
+                server_path = os.path.join(self.server_dir, "server.py")
                 
                 # Добавляем логирование команды запуска
                 start_msg = f"Starting server with Python: {python_path}"
                 self.logs.append(start_msg)
                 logging.info(start_msg)
                 
-                dir_msg = f"Current directory: {current_dir}"
+                dir_msg = f"Current directory: {self.server_dir}"
                 self.logs.append(dir_msg)
                 logging.info(dir_msg)
                 
                 self.server_process = subprocess.Popen(
-                    [python_path, "server.py"],
+                    [python_path, server_path],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT,
                     text=True,
                     bufsize=1,
                     universal_newlines=True,
-                    cwd=current_dir
+                    cwd=self.server_dir
                 )
                 
                 # Проверяем, запустился ли процесс
@@ -115,7 +117,7 @@ def main(page: ft.Page):
     server = ServerManager()
     
     # Status text
-    status_text = ft.Text("Server status: Stopped", color=ft.colors.RED)
+    status_text = ft.Text("Server status: Stopped", color=Colors.RED)
     
     # System stats
     def update_system_stats():
@@ -142,22 +144,22 @@ def main(page: ft.Page):
     cpu_progress = ft.ProgressBar(
         value=0,
         width=300,
-        color=ft.colors.BLUE_400,
-        bgcolor=ft.colors.BLUE_100
+        color=Colors.BLUE_400,
+        bgcolor=Colors.BLUE_100
     )
     
     memory_progress = ft.ProgressBar(
         value=0,
         width=300,
-        color=ft.colors.GREEN_400,
-        bgcolor=ft.colors.GREEN_100
+        color=Colors.GREEN_400,
+        bgcolor=Colors.GREEN_100
     )
     
     disk_progress = ft.ProgressBar(
         value=0,
         width=300,
-        color=ft.colors.ORANGE_400,
-        bgcolor=ft.colors.ORANGE_100
+        color=Colors.ORANGE_400,
+        bgcolor=Colors.ORANGE_100
     )
     
     # Text displays
@@ -170,12 +172,12 @@ def main(page: ft.Page):
         success, message = server.start_server()
         if success:
             status_text.value = "Server status: Running"
-            status_text.color = ft.colors.GREEN
+            status_text.color = Colors.GREEN
             logging.info("Opening web interface in browser")
             webbrowser.open("http://localhost:5000")
         else:
             status_text.value = f"Server status: {message}"
-            status_text.color = ft.colors.RED
+            status_text.color = Colors.RED
             logging.error(f"Failed to start server: {message}")
         page.update()
     
@@ -184,23 +186,23 @@ def main(page: ft.Page):
         success, message = server.stop_server()
         if success:
             status_text.value = "Server status: Stopped"
-            status_text.color = ft.colors.RED
+            status_text.color = Colors.RED
         else:
             status_text.value = f"Server status: {message}"
-            status_text.color = ft.colors.RED
+            status_text.color = Colors.RED
             logging.error(f"Failed to stop server: {message}")
         page.update()
     
     # Control buttons
     start_button = ft.ElevatedButton(
         "Start Server",
-        icon=ft.icons.PLAY_ARROW_ROUNDED,
+        icon=Icons.PLAY_ARROW_ROUNDED,
         on_click=on_start_click
     )
     
     stop_button = ft.ElevatedButton(
         "Stop Server",
-        icon=ft.icons.STOP_ROUNDED,
+        icon=Icons.STOP_ROUNDED,
         on_click=on_stop_click
     )
     
@@ -226,7 +228,7 @@ def main(page: ft.Page):
     # Web interface button
     web_button = ft.ElevatedButton(
         "Open Web Interface",
-        icon=ft.icons.WEB_ROUNDED,
+        icon=Icons.WEB_ROUNDED,
         on_click=lambda _: webbrowser.open("http://localhost:5000")
     )
     

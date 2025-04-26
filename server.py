@@ -145,9 +145,12 @@ login_manager.login_view = 'login'
 for category in ['images', 'videos', 'documents', 'other', 'links', 'audio', 'scripts', 'archives', 'code', 'executables', 'databases', 'torrents']:
     os.makedirs(os.path.join(app.config['UPLOAD_FOLDER'], category), exist_ok=True)
 
+DB_PATH = "/var/lib/walpserver/users.db"
+os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
+
 # Настройка базы данных пользователей
 def init_db():
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute('''
     CREATE TABLE IF NOT EXISTS users
@@ -278,7 +281,7 @@ def token_required(f):
         if isinstance(user_id, str):
             return jsonify({'message': user_id}), 401
         
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
         c.execute("SELECT * FROM users WHERE id = ?", (user_id,))
         user = c.fetchone()
@@ -294,7 +297,7 @@ def token_required(f):
 # Загрузчик пользователя для Flask-Login
 @login_manager.user_loader
 def load_user(user_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM users WHERE id = ?", (user_id,))
     user = c.fetchone()
@@ -366,7 +369,7 @@ def login():
         username = request.form['username']
         password = request.form['password']
         
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
         c.execute("SELECT * FROM users WHERE username = ?", (username,))
         user = c.fetchone()
@@ -387,7 +390,7 @@ def register():
         username = request.form['username']
         password = request.form['password']
         
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
         c.execute("SELECT * FROM users WHERE username = ?", (username,))
         if c.fetchone():
@@ -411,7 +414,7 @@ def dashboard():
 @app.route('/torrent_categories')
 @login_required
 def get_torrent_categories():
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT id, name, description FROM torrent_categories ORDER BY name")
     categories = c.fetchall()
@@ -462,7 +465,7 @@ def upload_file():
         file.save(file_path)
         
         # Сохраняем информацию о файле в БД
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
         
         if category == 'torrents':
@@ -500,7 +503,7 @@ def add_link():
     description = data.get('description', '')
     category = data.get('category', 'links')
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("""
     INSERT INTO links (title, url, description, category, add_date, user_id) 
@@ -526,7 +529,7 @@ def list_files():
     sort_by = request.args.get('sort', 'date')
     order = request.args.get('order', 'desc')
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     file_list = []
@@ -621,7 +624,7 @@ def list_files():
 @login_required
 def download_file(category, filename):
     # Проверяем, принадлежит ли файл текущему пользователю
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM files WHERE filename = ? AND user_id = ?", 
              (filename, current_user.id))
@@ -638,7 +641,7 @@ def download_file(category, filename):
 @app.route('/delete_file/<int:file_id>')
 @login_required
 def delete_file(file_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM files WHERE id = ? AND user_id = ?", 
              (file_id, current_user.id))
@@ -666,7 +669,7 @@ def delete_file(file_id):
 @app.route('/delete_link/<int:link_id>')
 @login_required
 def delete_link(link_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     # Проверяем, принадлежит ли ссылка текущему пользователю
@@ -687,7 +690,7 @@ def delete_link(link_id):
 @app.route('/file_links')
 @login_required
 def get_file_links():
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     # Получаем все файлы пользователя
@@ -741,7 +744,7 @@ def search():
     if not query:
         return jsonify([])
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     # Поиск файлов
@@ -789,7 +792,7 @@ def search():
 @app.route('/stats')
 @login_required
 def get_stats():
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     # Получаем общее количество файлов и ссылок
@@ -833,7 +836,7 @@ def is_text_file(filename):
 @login_required
 def preview_file(category, filename):
     # Проверяем, принадлежит ли файл текущему пользователю
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM files WHERE filename = ? AND user_id = ?", 
              (filename, current_user.id))
@@ -884,7 +887,7 @@ def preview_file(category, filename):
 @app.route('/notes')
 @login_required
 def get_notes():
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     c.execute("""
@@ -922,7 +925,7 @@ def add_note():
     priority = data.get('priority', 0)
     now = datetime.now().isoformat()
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("""
     INSERT INTO notes (title, content, create_date, update_date, priority, user_id) 
@@ -950,7 +953,7 @@ def update_note(note_id):
     if not data:
         return jsonify({'error': 'Нет данных для обновления'}), 400
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     # Проверяем, принадлежит ли заметка пользователю
@@ -989,7 +992,7 @@ def update_note(note_id):
 @app.route('/delete_note/<int:note_id>')
 @login_required
 def delete_note(note_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     # Проверяем, принадлежит ли заметка пользователю
@@ -1014,7 +1017,7 @@ def delete_note(note_id):
 def get_movies():
     filter_type = request.args.get('filter', 'all')
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     query = "SELECT * FROM movies WHERE user_id = ?"
@@ -1132,7 +1135,7 @@ def add_movie():
     genres = data.get('genres', '')
     description = data.get('description', '')
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     # Проверяем, есть ли уже такой фильм у пользователя
@@ -1167,7 +1170,7 @@ def add_movie():
 @login_required
 def watch_movie(movie_id):
     # Сначала проверяем, что фильм принадлежит пользователю
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     c.execute("SELECT kinopoisk_id FROM movies WHERE id = ? AND user_id = ?", 
@@ -1232,7 +1235,7 @@ def watch_movie(movie_id):
 @app.route('/toggle_watched/<int:movie_id>')
 @login_required
 def toggle_watched(movie_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     # Проверяем, что фильм принадлежит пользователю
@@ -1289,7 +1292,7 @@ def toggle_watched(movie_id):
 @app.route('/delete_movie/<int:movie_id>')
 @login_required
 def delete_movie(movie_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     # Проверяем, что фильм принадлежит пользователю
@@ -1346,7 +1349,7 @@ def add_movie_by_id(movie_id):
             description = film.get('description', '')
             
             # Проверяем, есть ли уже такой фильм у пользователя
-            conn = sqlite3.connect('users.db')
+            conn = sqlite3.connect(DB_PATH)
             c = conn.cursor()
             
             c.execute("SELECT id FROM movies WHERE kinopoisk_id = ? AND user_id = ?", 
@@ -1388,7 +1391,7 @@ def add_movie_by_id(movie_id):
 def search_torrents(movie_id):
     """Поиск торрентов для конкретного фильма"""
     # Получаем информацию о фильме из БД
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     c.execute("SELECT title, original_title, year FROM movies WHERE id = ? AND user_id = ?", 
@@ -2168,7 +2171,7 @@ def create_share_link():
     expiry_days = request.json.get('expiry_days', 30)  # По умолчанию 30 дней
     
     # Проверяем существование файла и принадлежность пользователю
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM files WHERE id = ? AND user_id = ?", 
              (file_id, current_user.id))
@@ -2206,7 +2209,7 @@ def create_share_link():
 @app.route('/shared/<token>')
 def view_shared_file(token):
     """Открытый доступ к файлу по ссылке без аутентификации"""
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     # Проверяем токен и актуальность ссылки
@@ -2247,7 +2250,7 @@ def view_shared_file(token):
 @login_required
 def get_my_share_links():
     """Получение списка созданных пользователем ссылок"""
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     c.execute('''
@@ -2281,7 +2284,7 @@ def get_my_share_links():
 @app.route('/delete_share_link/<int:link_id>', methods=['DELETE'])
 @login_required
 def delete_share_link(link_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
     try:
@@ -2322,7 +2325,7 @@ def delete_share_link(link_id):
 @app.route('/delete_file_link/<int:link_id>', methods=['DELETE'])
 @login_required
 def delete_file_link(link_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
     try:
@@ -2376,7 +2379,7 @@ def download_torrent_on_server():
         return jsonify({'error': 'Не указаны все необходимые параметры'})
     
     # Проверяем, принадлежит ли файл текущему пользователю
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM files WHERE id = ? AND user_id = ?", (file_id, current_user.id))
     file = c.fetchone()
@@ -2612,7 +2615,7 @@ def move_downloaded_files(download_id, download_dir):
             os.rename(file_path, dest_path)
             
             # Сохраняем информацию о файле в БД
-            conn = sqlite3.connect('users.db')
+            conn = sqlite3.connect(DB_PATH)
             c = conn.cursor()
             
             # Получаем ID пользователя из оригинального торрент-файла
@@ -2658,7 +2661,7 @@ def torrent_download_progress(download_id):
         
         try:
             # Проверяем, принадлежит ли загрузка текущему пользователю
-            conn = sqlite3.connect('users.db')
+            conn = sqlite3.connect(DB_PATH)
             c = conn.cursor()
             c.execute("SELECT user_id FROM files WHERE id = ?", (torrent_download['file_id'],))
             file = c.fetchone()
@@ -2734,7 +2737,7 @@ def stop_torrent_download():
         return jsonify({'error': 'Загрузка не найдена'})
     
     # Проверяем, принадлежит ли загрузка текущему пользователю
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT user_id FROM files WHERE id = ?", (file_id,))
     file = c.fetchone()
@@ -2779,7 +2782,7 @@ def pause_torrent_download():
         return jsonify({'error': 'Загрузка не найдена'})
     
     # Проверяем, принадлежит ли загрузка текущему пользователю
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT user_id FROM files WHERE id = ?", (file_id,))
     file = c.fetchone()
@@ -2824,7 +2827,7 @@ def resume_torrent_download():
         return jsonify({'error': 'Загрузка не найдена'})
     
     # Проверяем, принадлежит ли загрузка текущему пользователю
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT user_id FROM files WHERE id = ?", (file_id,))
     file = c.fetchone()
@@ -2853,7 +2856,7 @@ def resume_torrent_download():
 @login_required
 def media_player(category, filename):
     # Проверяем, принадлежит ли файл текущему пользователю
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM files WHERE filename = ? AND category = ? AND user_id = ?", 
              (filename, category, current_user.id))
@@ -2897,7 +2900,7 @@ def api_register():
     username = data.get('username')
     password = data.get('password')
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM users WHERE username = ?", (username,))
     if c.fetchone():
@@ -2929,7 +2932,7 @@ def api_login():
     username = data.get('username')
     password = data.get('password')
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM users WHERE username = ?", (username,))
     user = c.fetchone()
@@ -2962,7 +2965,7 @@ def api_list_files(current_user):
     sort_by = request.args.get('sort', 'date')
     order = request.args.get('order', 'desc')
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     query = "SELECT * FROM files WHERE user_id = ?"
@@ -3008,7 +3011,7 @@ def api_list_files(current_user):
 @app.route('/api/files/<int:file_id>', methods=['GET'])
 @token_required
 def api_get_file(current_user, file_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM files WHERE id = ? AND user_id = ?", (file_id, current_user.id))
     file = c.fetchone()
@@ -3065,7 +3068,7 @@ def api_upload_file(current_user):
         file.save(file_path)
         
         # Сохраняем информацию о файле в БД
-        conn = sqlite3.connect('users.db')
+        conn = sqlite3.connect(DB_PATH)
         c = conn.cursor()
         
         if category == 'torrents':
@@ -3104,7 +3107,7 @@ def api_upload_file(current_user):
 @app.route('/api/files/<int:file_id>/download', methods=['GET'])
 @token_required
 def api_download_file(current_user, file_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM files WHERE id = ? AND user_id = ?", (file_id, current_user.id))
     file = c.fetchone()
@@ -3127,7 +3130,7 @@ def api_download_file(current_user, file_id):
 @app.route('/api/files/<int:file_id>', methods=['DELETE'])
 @token_required
 def api_delete_file(current_user, file_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM files WHERE id = ? AND user_id = ?", (file_id, current_user.id))
     file = c.fetchone()
@@ -3163,7 +3166,7 @@ def api_delete_file(current_user, file_id):
 @app.route('/api/notes', methods=['GET'])
 @token_required
 def api_get_notes(current_user):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM notes WHERE user_id = ? ORDER BY priority DESC, update_date DESC", (current_user.id,))
     notes = c.fetchall()
@@ -3185,7 +3188,7 @@ def api_get_notes(current_user):
 @app.route('/api/notes/<int:note_id>', methods=['GET'])
 @token_required
 def api_get_note(current_user, note_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM notes WHERE id = ? AND user_id = ?", (note_id, current_user.id))
     note = c.fetchone()
@@ -3218,7 +3221,7 @@ def api_add_note(current_user):
     priority = data.get('priority', 0)
     now = datetime.now().isoformat()
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("""
     INSERT INTO notes (title, content, create_date, update_date, priority, user_id) 
@@ -3247,7 +3250,7 @@ def api_update_note(current_user, note_id):
     if not data:
         return jsonify({'message': 'Данные не предоставлены'}), 400
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM notes WHERE id = ? AND user_id = ?", (note_id, current_user.id))
     note = c.fetchone()
@@ -3281,7 +3284,7 @@ def api_update_note(current_user, note_id):
 @app.route('/api/notes/<int:note_id>', methods=['DELETE'])
 @token_required
 def api_delete_note(current_user, note_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM notes WHERE id = ? AND user_id = ?", (note_id, current_user.id))
     note = c.fetchone()
@@ -3300,7 +3303,7 @@ def api_delete_note(current_user, note_id):
 @app.route('/api/links', methods=['GET'])
 @token_required
 def api_get_links(current_user):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM links WHERE user_id = ? ORDER BY add_date DESC", (current_user.id,))
     links = c.fetchall()
@@ -3333,7 +3336,7 @@ def api_add_link(current_user):
     category = data.get('category', 'links')
     add_date = datetime.now().isoformat()
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("""
     INSERT INTO links (title, url, description, category, add_date, user_id) 
@@ -3357,7 +3360,7 @@ def api_add_link(current_user):
 @app.route('/api/links/<int:link_id>', methods=['DELETE'])
 @token_required
 def api_delete_link(current_user, link_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM links WHERE id = ? AND user_id = ?", (link_id, current_user.id))
     link = c.fetchone()
@@ -3380,7 +3383,7 @@ def api_get_movies(current_user):
     order = request.args.get('order', 'desc')
     filter_watched = request.args.get('watched')
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     query = "SELECT * FROM movies WHERE user_id = ?"
@@ -3435,7 +3438,7 @@ def api_get_movies(current_user):
 @app.route('/api/movies/<int:movie_id>', methods=['GET'])
 @token_required
 def api_get_movie(current_user, movie_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM movies WHERE id = ? AND user_id = ?", (movie_id, current_user.id))
     movie = c.fetchone()
@@ -3484,7 +3487,7 @@ def api_add_movie(current_user):
     watched = data.get('watched', False)
     watch_date = data.get('watch_date', None)
     
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     # Проверяем, существует ли фильм с таким kinopoisk_id у пользователя
@@ -3518,7 +3521,7 @@ def api_add_movie(current_user):
 @app.route('/api/movies/<int:movie_id>/toggle_watched', methods=['POST'])
 @token_required
 def api_toggle_watched(current_user, movie_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT watched FROM movies WHERE id = ? AND user_id = ?", (movie_id, current_user.id))
     movie = c.fetchone()
@@ -3549,7 +3552,7 @@ def api_toggle_watched(current_user, movie_id):
 @app.route('/api/movies/<int:movie_id>', methods=['DELETE'])
 @token_required
 def api_delete_movie(current_user, movie_id):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("SELECT * FROM movies WHERE id = ? AND user_id = ?", (movie_id, current_user.id))
     movie = c.fetchone()
@@ -3567,7 +3570,7 @@ def api_delete_movie(current_user, movie_id):
 @app.route('/api/stats', methods=['GET'])
 @token_required
 def api_get_stats(current_user):
-    conn = sqlite3.connect('users.db')
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
     # Статистика по файлам

@@ -2,7 +2,7 @@ Package: walpserver
 Version: 1.0.0-1
 Architecture: all
 Maintainer: Walpakhart <walpakhart@example.com>
-Installed-Size: 662
+Installed-Size: 672
 Depends: python3:any, python3-pip, python3-venv
 Section: utils
 Priority: optional
